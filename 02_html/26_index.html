@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>표 칸 합치기</title>
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        border: 1px solid black;
+        padding: 10px 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <!-- colspan="3" = 가로 3칸을 하나로 합침 -->
+          <th colspan="3" scope="col">성적표</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <!-- rowspan="3" : '과목' 칸이 세로 3줄을 하나로 합침 -->
+          <th rowspan="3" scope="rowgroup">과목</th>
+          <th scope="row">국어</th>
+          <td>90</td>
+        </tr>
+        <tr>
+          <th scope="row">영어</th>
+          <td>85</td>
+        </tr>
+        <tr>
+          <th scope="row">수학</th>
+          <td>100</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "html": {
+    "snippets": {
+      "meta:utf": "meta[charset=${charset}]",
+      "doc": "<html lang=\"ko\">\n<head>\n\t<meta charset=\"UTF-8\">\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\t<title>${1:Document}</title>\n</head>\n<body>\n\t${0}\n</body>\n</html>"
+    }
+  }
+}

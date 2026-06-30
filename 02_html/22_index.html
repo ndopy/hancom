@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이미지 경로</title>
+  </head>
+  <body>
+    <!-- ./ = 현재 있는 폴더 -->
+    <img src="fruits.jpg" alt="과일" width="400" height="300" />
+    <br />
+
+    <!-- ./images = 현재 폴더 안에 있는 images 폴더 -->
+    <img src="./images/cat.jpg" alt="고양이" width="400" height="300" />
+    <br />
+
+    <!-- ../ = 현재 폴더의 상위 폴더 -->
+    <img src="../logo.jpg" alt="로고" width="400" height="300" />
+    <br />
+
+    <!-- https:// = 인터넷 주소 그대로 (절대 경로) -->
+    <img src="https://picsum.photos/400/300" alt="인터넷 사진" />
+    <br />
+
+    <!-- 
+      LiveServer는 현재 프로젝트 폴더(hancom)를 루트 폴더로 잡기 때문에
+      hancom 폴더보다 상위 폴더인 Downloads 폴더에 접근할 수 없다.
+      따라서 아래 이미지는 렌더링되지 않는다.
+
+      작업 폴더 안에 폴더를 만들어서 이미지를 관리하는 것을 권장함.
+    -->
+    <img src="../../../Downloads/book.jpg" alt="책" width="400" height="300" />
+    <br />
+  </body>
+</html>
