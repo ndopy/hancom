@@ -1,0 +1,38 @@
+<!-- "이건 HTML 문서야" 선언 -->
+<!doctype html>
+<!-- 문서 시작, 한국어 페이지 -->
+<html lang="ko">
+  <!-- 화면에 보이지 않는 칸 -->
+  <head>
+    <!-- 한글이 깨지지 않도록 설정 -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 브라우저 탭에 표시되는 이름 -->
+    <title>04-주석,단축키</title>
+    <style>
+      mark::before,
+      mark::after {
+        clip-path: inset(100%);
+        clip: rect(2px, 2px, 2px, 2px);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
+
+      mark::before {
+        content: " [강조 시작] ";
+      }
+
+      mark::after {
+        content: " [강조 끝] ";
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 이건 메모입니다. 화면에 보이지 않습니다. -->
+    <h1>안녕하세요!</h1>
+    <p>이것은 <mark>내용</mark>입니다.</p>
+  </body>
+</html>
