@@ -1,0 +1,32 @@
+/* body => h1, img, p, ul => .special(클래스) => a
+  일반 => 구체 순서
+*/
+
+h1 {
+  color: red;
+}
+
+p {
+  color: green;
+}
+
+/* last-of-type : 형제 요소들 중 해당 태그의 맨 마지막 요소를 찾을 때 사용한다. */
+p:last-of-type {
+  color: pink;
+}
+
+:nth-last-child(2) {
+  color: deeppink;
+}
+
+#normal {
+  color: black;
+}
+
+.special {
+  color: orange;
+}
+
+li em {
+  color: purple;
+}
