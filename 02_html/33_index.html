@@ -1,0 +1,93 @@
+<!doctype html>
+<!-- "이건 HTML 문서야" 선언 -->
+<!-- 1. 이 한 줄 안 쓰면 화면이 어떻게 깨짐? -->
+<html lang="ko">
+  <!-- 문서 시작, 한국어 페이지 -->
+  <!-- 2. lang="ko"를 "en"으로 바꾸면 뭐가 달라짐? -->
+  <head>
+    <!-- 화면엔 안 보이는 준비 칸 -->
+    <meta charset="UTF-8" />
+    <!-- 한글 안 깨지게 -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <!-- 3. 이 viewport 줄은 무슨 일을 함? 모바일이랑 무슨 상관? -->
+    <title>회원 가입</title>
+    <!-- 브라우저 탭 이름 -->
+  </head>
+  <body>
+    <!-- 화면에 보이는 진짜 칸 -->
+    <header>
+      <!-- 맨 위 머리말 -->
+      <nav aria-label="주요 메뉴">
+        <!-- 메뉴 모음 -->
+        <!-- 4. aria-label은 왜 붙임? 없으면 누가 불편함? -->
+        <ul>
+          <li><a href="#join">가입</a></li>
+          <!-- 5. href="#join" 앞의 #은 무슨 뜻? -->
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- 핵심 본문 -->
+      <section id="join">
+        <!-- 한 주제 덩어리 -->
+        <h2>회원 가입</h2>
+        <form
+          action="/signup"
+          method="post">
+          <!-- 6. action이랑 method가 각각 뭘 정하는 거임? -->
+          <label for="email">이메일</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required />
+          <!-- 7. label의 for랑 input의 id가 똑같으면 무슨 일이 생김? -->
+          <!-- 8. required 빼면 어떻게 됨? type="email"은 뭘 검사함? -->
+          <fieldset>
+            <legend>관심사</legend>
+            <label
+              ><input
+                type="checkbox"
+                name="tag"
+                value="fe" />
+              프론트엔드</label
+            >
+            <!-- 9. checkbox 여러 개의 name을 똑같이 "tag"로 두는 이유는? -->
+          </fieldset>
+          <button type="submit">가입하기</button>
+        </form>
+      </section>
+
+      <section>
+        <h2>요금제</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>플랜</th>
+              <th>가격</th>
+            </tr>
+          </thead>
+          <!-- 10. thead와 tbody를 굳이 나누는 이유는? th랑 td 차이는? -->
+          <tbody>
+            <tr>
+              <td>무료</td>
+              <td>0원</td>
+            </tr>
+            <tr>
+              <td>프로</td>
+              <td>9,900원</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer>
+      <small>&copy; 2026 커뮤니티</small>
+      <!-- 11. &copy; 는 화면에 뭐로 보임? 왜 ⓒ를 직접 안 침? -->
+    </footer>
+  </body>
+</html>
