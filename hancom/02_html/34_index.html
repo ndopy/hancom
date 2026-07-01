@@ -27,7 +27,7 @@
       <h2>바로가기</h2>
       <nav>
         <a href="#about" class="nav-link">소개</a> |
-        <a href="#skill" class="nav-link">할 줄 아는 것</a> |
+        <a href="#skill" class="nav-link">기술 스택</a> |
         <a href="#contact" class="nav-link">연락처</a>
       </nav>
     </header>
@@ -35,13 +35,21 @@
     <main>
       <section class="section" id="about">
         <h2>소개</h2>
-        <p>안녕하세요. <strong>HTML을 이제 막 배운</strong> 표후동입니다.</p>
-        <img
-          class="profile-img"
-          src="profile-cat.jpg"
-          alt="내 프로필 사진"
-          width="200"
-          height="200" />
+        <p>
+          안녕하세요.
+          <mark><strong>프론트엔드 엔지니어</strong></mark
+          >가 되고 싶은 표후동입니다.
+        </p>
+
+        <figure>
+          <img
+            class="profile-img"
+            src="profile-cat.jpg"
+            alt="내 프로필 사진"
+            width="200"
+            height="200" />
+          <figcaption><small>프로필 사진</small></figcaption>
+        </figure>
       </section>
 
       <br />
@@ -49,12 +57,14 @@
       <br />
 
       <section class="section" id="skill">
-        <h2>할 줄 아는 것</h2>
+        <h2>기술 스택</h2>
         <ul>
-          <li>HTML 뼈대 만들기</li>
-          <li>시맨틱 태그로 구조 짜기</li>
-          <li>표, 폼, 링크 넣기</li>
-          <li>VS Code에 Claude Code 연동하기</li>
+          <li>HTML + CSS</li>
+          <li>JavaScript / TypeScript</li>
+          <li>React / Next.js</li>
+          <li>TailwindCSS / Zustand / TanStack Query</li>
+          <li>Node.js / Express.js / NestJS</li>
+          <li>MongoDB / PostgreSQL</li>
         </ul>
 
         <h3>공부 기록</h3>
@@ -67,15 +77,15 @@
           </thead>
           <tbody>
             <tr>
-              <th>1일차</th>
+              <th><time datetime="2026-06-29">1일차</time></th>
               <td>태그 + 뼈대</td>
             </tr>
             <tr>
-              <th>2일차</th>
+              <th><time datetime="2026-06-30">2일차</time></th>
               <td>표, 폼, 시맨틱</td>
             </tr>
             <tr>
-              <th>3일차</th>
+              <th><time datetime="2026-07-01">3일차</time></th>
               <td>영상, 음성, Emmet, 개발자도구</td>
             </tr>
           </tbody>
@@ -89,23 +99,21 @@
       <section class="section" id="contact">
         <h2>연락처</h2>
 
-        <ul>
-          <li>
-            <a href="https://github.com/ndopy/hancom" target="_blank">깃허브</a>
-          </li>
-          <li>
-            <a href="https://velog.io/@whoodongpyo/posts" target="_blank">블로그</a>
-          </li>
-        </ul>
+        <address>
+          <a href="https://github.com/ndopy/hancom" target="_blank">깃허브</a>
+          <a href="https://velog.io/@whoodongpyo/posts" target="_blank">블로그</a>
+        </address>
 
         <h3>메시지 보내기</h3>
         <form action="/send" method="post">
           <label for="name">이름</label>
+          <br />
           <input type="text" name="name" id="name" required />
           <br />
           <br />
 
           <label for="msg">메시지</label>
+          <br />
           <textarea name="msg" id="msg" rows="3"></textarea>
           <br />
 
