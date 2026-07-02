@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  margin-top: 150px;
+}
+
+.box {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: hotpink;
+  color: white;
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+}
+
+.box:hover {
+  transform: rotate(10deg) scale(1.2);
+}
+
+.box2 {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: navy;
+  color: white;
+  border-radius: 16px;
+  transition: transform 0.7s ease;
+}
+
+.box2:hover {
+  transform: translateX(-250px);
+}

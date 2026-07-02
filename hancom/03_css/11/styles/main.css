@@ -1,0 +1,35 @@
+.bar,
+.preview {
+  transition: 0.3s;
+}
+
+/* 기본값 (0deg) */
+.bar {
+  transform: rotate(0deg);
+}
+.preview {
+  height: 200px;
+  background: linear-gradient(0deg, #ec4899, #8b5cf6);
+}
+
+/* 라디오가 체크되면 형제 요소의 스타일을 바꾼다 */
+#a90:checked ~ .bar {
+  transform: rotate(90deg);
+}
+#a90:checked ~ .preview {
+  background: linear-gradient(90deg, #ec4899, #8b5cf6);
+}
+
+#a180:checked ~ .bar {
+  transform: rotate(180deg);
+}
+#a180:checked ~ .preview {
+  background: linear-gradient(180deg, #ec4899, #8b5cf6);
+}
+
+#a270:checked ~ .bar {
+  transform: rotate(270deg);
+}
+#a270:checked ~ .preview {
+  background: linear-gradient(270deg, #ec4899, #8b5cf6);
+}

@@ -1,0 +1,14 @@
+.grid {
+  margin: 100px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.card {
+  background-color: hotpink;
+  color: white;
+  text-align: center;
+  padding: 22px 0;
+  border-radius: 8px;
+}

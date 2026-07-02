@@ -1,0 +1,62 @@
+.container {
+  position: relative;
+  margin: 300px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(-100px);
+  }
+
+  50% {
+    transform: translateY(0);
+  }
+
+  75% {
+    transform: translateY(100px);
+  }
+}
+
+@keyframes leftright {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-100px);
+  }
+
+  50% {
+    transform: translateX(0);
+  }
+
+  75% {
+    transform: translateX(100px);
+  }
+}
+
+.ball {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.pink {
+  background: hotpink;
+  animation: float 2s linear infinite;
+}
+
+.navy {
+  background: navy;
+  animation: leftright 2s linear infinite;
+}
