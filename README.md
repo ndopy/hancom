@@ -27,6 +27,14 @@
 - 선택자 우선순위와 특이성(Specificity)
 - CSS 코드 작성 순서 관례 및 모범 사례
 - 선택자 조합과 활용 방법
+- Stylelint를 활용한 속성 순서 자동 정렬
+- 박스 모델(Box Model)과 Flexbox 레이아웃 기초
+- CSS 연결 방법 3가지(외부, 내부, 인라인)와 가상 클래스
+- transform을 이용한 3D 카드 뒤집기, hover 애니메이션
+- @keyframes를 활용한 자동 애니메이션
+- 인접 형제 선택자(~)를 이용한 상태 기반 스타일링
+- position(relative/absolute/fixed/sticky) 요소 배치
+- CSS Grid를 이용한 격자 레이아웃
 
 ### 실습 프로젝트
 - 학습한 HTML 기술을 활용한 개인 포트폴리오 웹사이트
@@ -45,8 +53,9 @@ open hancom/02_html/34_index.html
 2일차 → 표, 폼, 시맨틱 태그  
 3일차 → 영상, 음성, Emmet, 개발자도구
 4일차 → CSS 기초 선택자 및 코드 순서 관례
+5일차 → CSS 고급 선택자, 박스모델/Flex, 애니메이션·포지셔닝, Grid 레이아웃
 
 ---
 
 **Author:** ndopy  
-**Last Updated:** 2026-07-01
+**Last Updated:** 2026-07-02
