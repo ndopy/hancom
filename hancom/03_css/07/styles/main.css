@@ -1,0 +1,33 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  border: 5px solid brown;
+}
+
+a {
+  font-size: 20px;
+  text-decoration: none;
+}
+
+a:link {
+  /* 링크 방문 전 */
+  color: royalblue;
+}
+
+a:hover {
+  /* 링크에 마우스를 올릴 때 */
+  color: tomato;
+}
+
+a:visited {
+  /* 링크 방문 후 */
+  color: darkgreen;
+}
+
+a:active {
+  /* 링크에 마우스를 클릭하는 중일 때 */
+  color: red;
+}

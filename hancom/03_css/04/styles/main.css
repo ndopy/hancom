@@ -1,0 +1,28 @@
+ul {
+  background-color: white;
+  padding: 20px;
+  border: 5px solid navy;
+  margin: 50px;
+  /* margin: 500px 100px 5px 200px; */
+  list-style: none;
+}
+
+ul li {
+  padding: 10px;
+  border: 5px solid yellowgreen;
+  border-bottom: none;
+}
+
+ul li:last-child {
+  border-bottom: 5px solid yellowgreen;
+}
+
+/* 
+  margin, padding, border
+  - 값 1개 : 상하좌우 전부 동일한 값으로 들어간다.
+  - 값 2개 : 상하 / 좌우 (ex. 10px 30px)
+  - 값 4개 : 상-우-하-좌 (시계 방향) (ex. 10px 20px 30px 40px)
+
+  margin-top, margin-right, margin-bottom, margin-left 처럼
+  각 속성마다 지정할 수도 있다. (padding, border도 동일)
+*/

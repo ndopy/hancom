@@ -1,0 +1,14 @@
+/* 
+  Node.js 설치 중 npm 버전이 확인이 안됨.
+  아래 명령어 입력하여 해결
+  - Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+  - 파워쉘 권한 문제 (실행 정책 문제)
+*/
+
+.box {
+  background: hotpink;
+  border-radius: 16px;
+  color: white;
+  height: 120px;
+  width: 120px;
+}
