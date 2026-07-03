@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+p {
+  color: palevioletred;
+}
+
+.test {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  box-sizing: border-box;
+  padding: 50px;
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+  background: palegreen;
+}

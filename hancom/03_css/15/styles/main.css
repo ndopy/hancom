@@ -1,0 +1,24 @@
+/* 문서 전체의 뿌리 => 어디서든 꺼내 쓸 수 있음 (안에 변수 정의) */
+:root {
+  --main-color: #2563eb;
+  --gap: 12px;
+  --bg-color: #fde002;
+}
+
+.row {
+  --main-color: lightgray;
+  display: flex;
+  gap: var(--gap);
+  padding: var(--gap);
+  background-color: var(--bg-color);
+}
+
+.btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--main-color);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
