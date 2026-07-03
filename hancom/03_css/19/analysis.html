@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"
+    />
+    <link rel="stylesheet" href="styles/main.css" />
+    <title>웹사이트 분석 · HTML/CSS 미니 프로젝트</title>
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>HTML/CSS 미니 프로젝트</h1>
+      <nav class="site-nav">
+        <a href="index.html">홈</a>
+        <a href="analysis.html" aria-current="page">웹사이트 분석</a>
+        <a href="summary.html">HTML/CSS 정리</a>
+        <a href="quiz.html">퀴즈</a>
+      </nav>
+    </header>
+
+    <label class="theme-toggle" for="theme-toggle-input" aria-label="다크모드 전환">
+      <input type="checkbox" id="theme-toggle-input" class="theme-toggle-input" />
+      <span class="theme-toggle-icon theme-toggle-icon-light">🌙</span>
+      <span class="theme-toggle-icon theme-toggle-icon-dark">☀️</span>
+    </label>
+    <a href="#" class="back-to-top" aria-label="맨 위로 이동">↑</a>
+
+    <main class="content-main">
+      <h2>1. 웹사이트 분석 — Apple 대한민국 (apple.com/kr)</h2>
+      <p>
+        제가 마음에 드는 웹사이트로 고른 Apple 대한민국 홈페이지를 소개하고, 직접 분석한 내용을
+        정리했습니다.
+      </p>
+
+      <section class="section-block">
+        <h3>선정 이유</h3>
+        <ul>
+          <li>애플 같은 대기업에서 시맨틱 태그를 얼마나 잘 활용하고 있는지 궁금했습니다.</li>
+          <li>
+            스크롤 애니메이션이나 반응형과 관련된 스킬을 공부하는 데 도움이 될 것 같았습니다.
+          </li>
+        </ul>
+      </section>
+
+      <section class="section-block">
+        <h3>① 내가 직접 확인한 내용</h3>
+        <div class="note">
+          이 섹션은 브라우저와 개발자도구(F12)를 직접 써서 확인한 내용을 정리한 곳입니다.
+        </div>
+        <div class="sub-block">
+          <p class="sub-block-title">첫인상</p>
+          <ul>
+            <li>모바일 화면에 적합하도록 반응형 처리가 잘 되어있습니다.</li>
+            <li>
+              한 페이지 내에 꽤 많은 내용이 있으나, 적절한 레이아웃 배치와 카드 디자인으로 이를
+              깔끔하게 구현한 느낌입니다.
+            </li>
+          </ul>
+        </div>
+
+        <div class="sub-block">
+          <p class="sub-block-title">디자인에서 마음에 든 점</p>
+          <ul>
+            <li>
+              <strong>레이아웃</strong> : 전체적으로 카드 디자인을 많이 사용하였으며 사각형
+              프레임이 대다수여서 콘텐츠가 명확하게 구분됩니다.
+            </li>
+            <li>
+              <strong>색감</strong> : 원색 계열보다는 흰색, 옅은 회색 등의 무채색 계통을 주로
+              사용하여 눈이 피로하지 않았습니다.
+            </li>
+            <li>
+              <strong>타이포그래피</strong> : 글자색은 'New'와 같은 강조를 위하거나 페이지 이동
+              등의 텍스트 버튼 등을 제외하면 무채색 계열의 색상을 사용하였습니다.
+            </li>
+          </ul>
+        </div>
+
+        <div class="sub-block">
+          <p class="sub-block-title">개발자도구로 직접 확인한 내용</p>
+          <ol>
+            <li>
+              <strong>header 태그 미사용</strong>: header 태그는 아예 쓰지 않고 있었습니다.
+              <img src="./assets/apple-no-header.png" alt="애플 홈페이지 - header 미사용" />
+            </li>
+            <li>
+              <strong>스크롤 연동 비디오</strong>: 스크롤 위치에 맞춰 비디오 프레임을 훑는
+              이벤트를 적극적으로 활용하고 있었습니다. (스크롤에 맞춰 class 등의 CSS가 변화하는
+              모습)
+              <img src="./assets/apple-scroll-event.gif" alt="애플의 비디오 스크롤 이벤트" />
+            </li>
+            <li>
+              <strong>모바일 메뉴 구조</strong>: 데스크톱 화면에서는
+              <code>&lt;ul id="globalnav-list"&gt;</code>가 전체 메뉴 항목을 보여주고, 모바일
+              폭으로 줄어들면 <code>&lt;div class="globalnav-menutrigger"&gt;</code>(햄버거
+              버튼)가 대신 나타납니다. 처음에는 JavaScript가 속성을 바꿔가며 전환하는 방식인 줄
+              알았는데, 직접 CSS 파일(<code>globalheader.css</code>)을 찾아보니 두 요소가 DOM에
+              항상 함께 존재하고, 미디어 쿼리가 <code>display: none</code> /
+              <code>block</code>으로 화면 너비에 따라 둘 중 하나만 보여주는 방식이었습니다.
+              수업에서 배운 "미디어 쿼리로 display 전환하기"가 실제 대기업 사이트에도 그대로
+              쓰이고 있었습니다.
+            </li>
+            <li>
+              <strong>정적 소스와 실시간 DOM은 다를 수 있다</strong>: 위
+              <code>globalnav-list</code>를 자세히 살펴보다가, <code>curl</code>로 받은 서버
+              응답(정적 HTML)에는 <code>&lt;ul id="globalnav-list" role="none"&gt;</code>처럼
+              <code>role="none"</code>이 붙어있는데, 브라우저 개발자도구(Elements 탭)로 실제
+              로드된 페이지를 확인해보니 <code>role="none"</code>이 없다는 것을 발견했습니다. 즉
+              페이지가 로드된 뒤 JavaScript가 이 속성을 제거하고 있다는 뜻입니다.
+              <code>curl</code>이나 "페이지 소스 보기"는 서버가 보낸 최초 HTML만 보여줄 뿐 JS를
+              실행하지 않기 때문에, 이런 차이는 실제 브라우저의 개발자도구로 직접 확인해야만 알 수
+              있다는 것을 배웠습니다.
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <hr />
+
+      <section class="section-block">
+        <h3>② Claude Code를 활용한 분석</h3>
+        <p>
+          이 섹션은 Claude Code로 apple.com/kr의 실제 페이지 소스(HTML)와 연결된 CSS 파일을 직접
+          받아서(<code>curl</code>) 태그 사용 빈도, 미디어 쿼리, 색상/타이포그래피 값을 확인한
+          내용입니다.
+        </p>
+
+        <h4>1) 시맨틱 태그 활용</h4>
+        <p>페이지 전체에서 태그 사용 빈도를 세어보면 다음과 같습니다.</p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>태그</th>
+                <th>개수</th>
+                <th>비고</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>&lt;header&gt;</code></td>
+                <td>0개</td>
+                <td><strong>아예 사용하지 않음</strong></td>
+              </tr>
+              <tr>
+                <td><code>&lt;nav&gt;</code></td>
+                <td>2개</td>
+                <td>글로벌 내비게이션 + 로컬 내비게이션</td>
+              </tr>
+              <tr>
+                <td><code>&lt;main role="main"&gt;</code></td>
+                <td>1개</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td><code>&lt;section&gt;</code></td>
+                <td>5개</td>
+                <td>hero, promo, gallery 등 주요 블록</td>
+              </tr>
+              <tr>
+                <td><code>&lt;footer role="contentinfo"&gt;</code></td>
+                <td>1개</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td><code>&lt;button&gt;</code></td>
+                <td>14개</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td><code>role="button"</code></td>
+                <td>2개</td>
+                <td>버튼이 아닌 요소에 역할 부여</td>
+              </tr>
+              <tr>
+                <td><code>&lt;ul&gt;</code> / <code>&lt;li&gt;</code></td>
+                <td>26개 / 237개</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td><code>role="list"</code> / <code>role="listitem"</code></td>
+                <td>11개 / 55개</td>
+                <td>네이티브 리스트 대신 ARIA role로 대체한 경우</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p><strong>관찰한 점</strong></p>
+        <ul>
+          <li>
+            <strong>랜드마크 태그는 확실히 사용</strong>: <code>&lt;nav&gt;</code>,
+            <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>,
+            <code>&lt;section&gt;</code> 같은 큰 구조를 나누는 태그는 명확하게 쓰고 있었습니다.
+          </li>
+          <li>
+            <strong><code>&lt;header&gt;</code>는 쓰지 않는다</strong>: 대신
+            <code>&lt;nav id="globalnav" role="navigation" aria-label="글로벌"&gt;</code>
+            하나로 상단 내비게이션 영역을 대체하고 있었습니다. 헤더 영역 전체를 감싸는 별도 태그
+            없이 nav 자체가 최상단 랜드마크 역할을 하고 있었습니다.
+          </li>
+          <li>
+            <strong
+              >작은 단위 요소는 시맨틱 태그보다 ARIA <code>role</code> 속성으로 대체하는 경우가
+              많다</strong
+            >: 리스트(<code>role="list"</code>/<code>role="listitem"</code>)나
+            버튼(<code>role="button"</code>) 등을
+            <code>&lt;ul&gt;</code>/<code>&lt;li&gt;</code>/<code>&lt;button&gt;</code> 대신
+            <code>role</code>로 처리한 부분이 눈에 띄었습니다. 커스텀 스타일링과 JS로 다루기
+            편하게 하려고 이런 방식을 쓴 것 같았습니다.
+          </li>
+        </ul>
+        <p>
+          <strong>결론</strong>: "시맨틱 태그 = 웹 접근성"이라는 공식이 그대로 적용되진
+          않았습니다. 큰 틀은 시맨틱 태그로 잡고, 세부적인 부분은 일반 태그에 ARIA role을 더해서
+          처리하고 있었습니다.
+        </p>
+
+        <h4>2) 반응형 &amp; 스크롤 애니메이션</h4>
+
+        <p>미디어 쿼리 브레이크포인트는 다음과 같습니다.</p>
+        <pre><code>@media (max-width: 734px)   /* 모바일 */
+@media (max-width: 1068px)  /* 태블릿 */
+@media (min-width: 1069px)  /* 데스크톱 */
+@media (min-width: 1069px) and (min-height: 776px)  /* 뷰포트 높이까지 고려 */</code></pre>
+        <p>
+          너비뿐 아니라 <code>min-height</code> 조건을 함께 쓰는 규칙도 있어서, 화면
+          비율(가로/세로)까지 고려해 레이아웃을 조정한다는 것을 확인했습니다.
+        </p>
+
+        <p>
+          갤러리 스크롤 연출을 담당하는 <code>home-gallery.built.css</code> 파일 하나에서
+          <code>@keyframes</code> 13개, <code>transition</code> 50회, <code>transform</code> 27회가
+          사용되고 있었습니다. 애니메이션 관련 코드가 특정 파일(기능 단위)에 몰려 있는 구조였습니다.
+        </p>
+
+        <p>CSS 변수로 애니메이션 값을 관리하는 예시도 있었습니다.</p>
+        <pre><code>--media-gallery-bottom-copy-duration: ...</code></pre>
+        <p>지속시간(duration) 같은 값을 하드코딩하지 않고 변수로 빼서 관리하고 있었습니다.</p>
+
+        <div class="note">
+          ⚠️ 이 부분은 정적 소스 분석 결과이며, 실제 스크롤할 때 어떻게 보이는지는 브라우저에서
+          직접 확인이 필요합니다. (F12 → Elements 탭에서 스크롤하며 클래스 변화 관찰 — 위 "① 내가
+          직접 확인한 내용"에 이어서 작성)
+        </div>
+
+        <h4>3) 색상 &amp; 타이포그래피</h4>
+
+        <p>
+          <strong>색상 — 디자인 토큰(<code>--sk-</code> 접두사 CSS 변수) 기반 테마 전환</strong>
+        </p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>변수</th>
+                <th>라이트 모드</th>
+                <th>다크 모드</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>--sk-body-background-color</code></td>
+                <td><code>rgb(255,255,255)</code> 흰색</td>
+                <td><code>rgb(0,0,0)</code> 검정</td>
+              </tr>
+              <tr>
+                <td><code>--sk-body-text-color</code></td>
+                <td><code>rgb(29,29,31)</code> ≈ <code>#1D1D1F</code></td>
+                <td><code>rgb(245,245,247)</code> ≈ <code>#F5F5F7</code></td>
+              </tr>
+              <tr>
+                <td><code>--sk-body-link-color</code></td>
+                <td><code>rgb(0,102,204)</code> Apple 블루</td>
+                <td><code>rgb(41,151,255)</code> 더 밝은 블루</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ul>
+          <li>
+            본문 텍스트가 순수 검정(<code>#000</code>)이 아니라
+            <strong><code>#1D1D1F</code>("오프블랙")</strong>이었습니다. 눈이 편하도록 일부러 이
+            톤을 고른 것 같았습니다.
+          </li>
+          <li>
+            다크모드에서는 링크 색이 더 밝은 블루로 바뀌었습니다. 어두운 배경 위에서
+            대비(contrast)를 맞추기 위한 접근성 고려로 보였습니다.
+          </li>
+          <li>
+            <code>.theme-light</code> / <code>.theme-dark</code> 클래스에 따라 같은 변수 이름이
+            서로 다른 값을 갖도록 설계되어 있었습니다. CSS 변수를 활용한 다크모드 구현의 실전
+            예시였습니다.
+          </li>
+        </ul>
+
+        <p><strong>타이포그래피</strong></p>
+        <ul>
+          <li>
+            <code>font-family</code>(한국어):
+            <code
+              >SF Pro KR, SF Pro Text, SF Pro Icons, Apple Gothic, HY Gulim, MalgunGothic, HY Dotum,
+              Lexi Gulim, Helvetica Neue, Helvetica, Arial, sans-serif</code
+            >
+            — 자체 서체(SF Pro KR)를 우선으로 하고, 없으면 OS 한글 서체(맑은 고딕 등)로 대체한 뒤
+            최종적으로 sans-serif를 사용했습니다. <code>:lang(ko)</code> 선택자로 언어별 폰트
+            스택을 분기 처리하고 있었습니다.
+          </li>
+          <li>
+            <code>body { font-size: 17px }</code> 기준, 요소별로
+            <code>12px / 14px / 19px</code> 등으로 세분화되어 있었습니다. 모바일 폭(<code
+              >max-width: 734px</code
+            >)에서는 폰트 크기를 줄이는 규칙도 확인했습니다.
+          </li>
+          <li>
+            <code>font-weight</code>는 <code>400 / 500 / 600</code>만 사용했습니다.
+            <code>700</code>(굵은 bold)이 없어서 전체적으로 가볍고 절제된 인상을 주었습니다.
+          </li>
+          <li>
+            <code>:lang(ko) { word-break: keep-all }</code> — 한글 단어가 어중간하게 줄바꿈되는
+            것을 방지하는 디테일이었습니다.
+          </li>
+        </ul>
+
+        <p>
+          <strong>결론</strong>: 색상과 폰트를 하드코딩하지 않고 디자인 토큰(CSS 변수) 체계로
+          관리해서 라이트/다크 테마 전환과 다국어 대응을 일관되게 처리하고 있었습니다.
+        </p>
+
+        <h4>Claude Code 분석 종합</h4>
+        <ul>
+          <li>
+            시맨틱 태그는 "전부 다 쓴다"가 아니라
+            <strong>레이아웃의 큰 뼈대에만 적용하고, 세부는 ARIA role로 보완</strong>하는 전략이
+            인상적이었습니다.
+          </li>
+          <li>
+            반응형은 단순 너비 기준 미디어쿼리뿐 아니라 뷰포트 높이까지 고려한다는 점이
+            새로웠습니다.
+          </li>
+          <li>
+            색상/타이포그래피를 CSS 변수 기반 토큰 시스템으로 관리하는 방식은, 지금까지 배운 CSS
+            변수 개념이 실무에서 다크모드·다국어 대응에 어떻게 응용되는지 보여주는 좋은
+            사례였습니다.
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <p class="footer-copyright">&copy; 2026 표후동</p>
+      <p class="footer-links">
+        <a href="mailto:vvhooping@gmail.com"
+          ><svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          ><rect x="2" y="4" width="20" height="16" rx="2"></rect><path
+              d="M22 6l-10 7L2 6"
+            ></path></svg
+          >이메일</a
+        >
+        ·
+        <a href="https://github.com/ndopy/hancom" target="_blank" rel="noopener noreferrer"
+          ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path
+              d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1-.02-1.96-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.7.41.36.78 1.08.78 2.17 0 1.57-.01 2.83-.01 3.22 0 .3.2.66.79.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"
+            ></path></svg
+          >GitHub</a
+        >
+        ·
+        <a href="https://velog.io/@whoodongpyo/posts" target="_blank" rel="noopener noreferrer"
+          ><svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          ><path d="M12 20h9"></path><path
+              d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"
+            ></path></svg
+          >블로그</a
+        >
+      </p>
+      <p>HTML/CSS만으로 제작 · Pretendard 폰트 · Claude Code와 함께 작업</p>
+      <p>최종 업데이트: 2026.07.03</p>
+    </footer>
+  </body>
+</html>

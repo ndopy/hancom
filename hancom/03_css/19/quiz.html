@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"
+    />
+    <link rel="stylesheet" href="styles/main.css" />
+    <title>퀴즈 · HTML/CSS 미니 프로젝트</title>
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>HTML/CSS 미니 프로젝트</h1>
+      <nav class="site-nav">
+        <a href="index.html">홈</a>
+        <a href="analysis.html">웹사이트 분석</a>
+        <a href="summary.html">HTML/CSS 정리</a>
+        <a href="quiz.html" aria-current="page">퀴즈</a>
+      </nav>
+    </header>
+
+    <label class="theme-toggle" for="theme-toggle-input" aria-label="다크모드 전환">
+      <input type="checkbox" id="theme-toggle-input" class="theme-toggle-input" />
+      <span class="theme-toggle-icon theme-toggle-icon-light">🌙</span>
+      <span class="theme-toggle-icon theme-toggle-icon-dark">☀️</span>
+    </label>
+    <a href="#" class="back-to-top" aria-label="맨 위로 이동">↑</a>
+
+    <main class="content-main">
+      <h2>3. 퀴즈</h2>
+      <p>
+        정답을 맞히는 것보다, 실제로 헷갈리기 쉬운 개념을 짚어보는 데 목적을 두고 문제를
+        만들었습니다. 먼저 답을 생각해본 뒤 "정답 및 해설 보기"를 눌러 확인해보세요.
+      </p>
+
+      <div class="quiz-item">
+        <p class="quiz-question"><strong>Q1. [객관식]</strong> 다음 중 특이성(specificity)이 가장 높아서 최종적으로 적용되는 CSS 규칙은 무엇일까요?</p>
+        <ol class="quiz-choices">
+          <li><code>p { color: blue; }</code></li>
+          <li><code>.text { color: green; }</code></li>
+          <li><code>#title { color: red; }</code></li>
+          <li>요소에 직접 붙인 인라인 스타일 <code>style="color: yellow;"</code></li>
+        </ol>
+        <details class="quiz-reveal">
+          <summary>정답 및 해설 보기</summary>
+          <p><strong>정답</strong>: <span class="answer-highlight">D</span></p>
+          <p>
+            우선순위는 인라인 스타일 &gt; id 선택자 &gt; class/속성/가상클래스 선택자 &gt; 태그
+            선택자 순입니다. id가 가장 강력하다고 착각하기 쉬운데, 요소에 직접 붙인 인라인
+            스타일이 그보다도 우선합니다.
+          </p>
+        </details>
+      </div>
+
+      <div class="quiz-item">
+        <p class="quiz-question">
+          <strong>Q2. [주관식]</strong> 어떤 요소에 <code>width: 200px; padding: 20px;
+          border: 5px solid;</code>가 적용되어 있습니다. <code>box-sizing: content-box</code>(기본값)일
+          때와 <code>box-sizing: border-box</code>일 때, 이 요소가 화면에서 실제로 차지하는 전체
+          너비는 각각 몇 px일까요?
+        </p>
+        <details class="quiz-reveal">
+          <summary>정답 및 해설 보기</summary>
+          <p><strong>정답</strong>: <span class="answer-highlight">content-box → 250px / border-box → 200px</span></p>
+          <p>
+            <code>content-box</code>는 <code>width</code>가 content 영역만의 너비라서, 여기에
+            padding(20px × 2)과 border(5px × 2)가 더해져 200 + 40 + 10 = 250px가 됩니다.
+            <code>border-box</code>는 padding과 border가 이미 <code>width</code> 안에
+            포함되도록 계산하므로, 지정한 200px가 그대로 전체 너비가 됩니다.
+          </p>
+        </details>
+      </div>
+
+      <div class="quiz-item">
+        <p class="quiz-question">
+          <strong>Q3. [객관식]</strong> 스크롤하는 동안에는 원래 자리에 있다가, 특정 지점을
+          지나면 화면에 고정되어 따라오는 <code>position</code> 값은 무엇일까요?
+        </p>
+        <ol class="quiz-choices">
+          <li><code>static</code></li>
+          <li><code>relative</code></li>
+          <li><code>fixed</code></li>
+          <li><code>sticky</code></li>
+        </ol>
+        <details class="quiz-reveal">
+          <summary>정답 및 해설 보기</summary>
+          <p><strong>정답</strong>: <span class="answer-highlight">D</span></p>
+          <p>
+            <code>fixed</code>는 스크롤 위치와 상관없이 처음부터 항상 화면(뷰포트)에 고정됩니다.
+            반면 <code>sticky</code>는 지정한 임계점(예: <code>top: 0</code>)에 도달하기 전까지는
+            <code>relative</code>처럼 원래 자리를 지키다가, 그 지점을 넘어가는 순간부터 고정되는
+            요소입니다. 이 둘을 같은 것으로 헷갈리기 쉽습니다.
+          </p>
+        </details>
+      </div>
+
+      <div class="quiz-item">
+        <p class="quiz-question">
+          <strong>Q4. [주관식]</strong> 아래처럼 <code>&lt;p&gt;</code> 태그 안에
+          <code>&lt;ul&gt;</code>을 넣으면 브라우저는 이 코드를 실제로 어떻게 처리할까요?
+          그리고 왜 그런 문제가 생기는지 설명해보세요.
+        </p>
+        <pre><code>&lt;p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;...&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/p&gt;</code></pre>
+        <details class="quiz-reveal">
+          <summary>정답 및 해설 보기</summary>
+          <p>
+            <strong>정답</strong>: <code>&lt;p&gt;</code>는 인라인 레벨 콘텐츠만 담을 수 있어서,
+            <code>&lt;ul&gt;</code>(블록 레벨 요소)을 만나는 순간 브라우저가
+            <code>&lt;p&gt;</code>를 자동으로 닫아버립니다. 그 뒤에 남은 <code>&lt;/p&gt;</code>는
+            짝이 없는 태그가 되어버립니다.
+          </p>
+          <p>
+            실제로 이 프로젝트의 "웹사이트 분석" 페이지를 작성하다가 정확히 이 문제로 Prettier가
+            "Unexpected closing tag p" 에러를 냈던 적이 있습니다. <code>&lt;ul&gt;</code>을
+            <code>&lt;p&gt;</code> 밖으로 꺼내서 형제 요소로 분리하니 해결됐습니다.
+          </p>
+        </details>
+      </div>
+
+      <div class="quiz-item">
+        <p class="quiz-question">
+          <strong>Q5. [객관식]</strong> 모바일 퍼스트 방식으로 CSS를 작성할 때, 화면이 커질수록
+          스타일을 "추가"해나가기 위해 주로 사용하는 미디어쿼리 조건은 무엇일까요?
+        </p>
+        <ol class="quiz-choices">
+          <li><code>max-width</code></li>
+          <li><code>min-width</code></li>
+          <li><code>max-height</code></li>
+          <li><code>orientation</code></li>
+        </ol>
+        <details class="quiz-reveal">
+          <summary>정답 및 해설 보기</summary>
+          <p><strong>정답</strong>: <span class="answer-highlight">B</span></p>
+          <p>
+            모바일 퍼스트는 기본 스타일을 좁은 화면 기준으로 작성하고,
+            <code>min-width</code> 미디어쿼리로 화면이 일정 너비 이상이 될 때 스타일을 덧붙여
+            나가는 방식입니다. 반대로 데스크톱을 기본으로 하고 좁아질 때
+            <code>max-width</code>로 스타일을 덮어쓰는 방식은 데스크톱 퍼스트라고 부릅니다.
+          </p>
+        </details>
+      </div>
+    </main>
+
+    <footer class="page-footer">
+      <p class="footer-copyright">&copy; 2026 표후동</p>
+      <p class="footer-links">
+        <a href="mailto:vvhooping@gmail.com"
+          ><svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          ><rect x="2" y="4" width="20" height="16" rx="2"></rect><path
+              d="M22 6l-10 7L2 6"
+            ></path></svg
+          >이메일</a
+        >
+        ·
+        <a href="https://github.com/ndopy/hancom" target="_blank" rel="noopener noreferrer"
+          ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path
+              d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1-.02-1.96-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.7.41.36.78 1.08.78 2.17 0 1.57-.01 2.83-.01 3.22 0 .3.2.66.79.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"
+            ></path></svg
+          >GitHub</a
+        >
+        ·
+        <a href="https://velog.io/@whoodongpyo/posts" target="_blank" rel="noopener noreferrer"
+          ><svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          ><path d="M12 20h9"></path><path
+              d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"
+            ></path></svg
+          >블로그</a
+        >
+      </p>
+      <p>HTML/CSS만으로 제작 · Pretendard 폰트 · Claude Code와 함께 작업</p>
+      <p>최종 업데이트: 2026.07.03</p>
+    </footer>
+  </body>
+</html>
