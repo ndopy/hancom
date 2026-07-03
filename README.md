@@ -35,9 +35,15 @@
 - 인접 형제 선택자(~)를 이용한 상태 기반 스타일링
 - position(relative/absolute/fixed/sticky) 요소 배치
 - CSS Grid를 이용한 격자 레이아웃
+- 미디어 쿼리(@media)를 활용한 반응형 스타일링
+- CSS 변수(Custom Properties, `:root`, `var()`)와 지역 재정의
+- box-shadow, border-radius, opacity, transition을 활용한 인터랙션
+- 가상 요소(::before, ::after)를 이용한 장식 및 hover 효과
+- CSS 리셋(reset)의 필요성과 적용 전후 비교
 
 ### 실습 프로젝트
 - 학습한 HTML 기술을 활용한 개인 포트폴리오 웹사이트
+- HTML/CSS 미니 프로젝트: 웹사이트 분석 · 학습 내용 정리 · 퀴즈 (JS 없이 순수 HTML/CSS로 구현)
 
 ## 🚀 시작하기
 
@@ -51,11 +57,13 @@ open hancom/02_html/34_index.html
 
 1일차 → HTML 기본 태그와 웹 페이지 구조  
 2일차 → 표, 폼, 시맨틱 태그  
-3일차 → 영상, 음성, Emmet, 개발자도구
-4일차 → CSS 기초 선택자 및 코드 순서 관례
-5일차 → CSS 고급 선택자, 박스모델/Flex, 애니메이션·포지셔닝, Grid 레이아웃
+3일차 → 영상, 음성, Emmet, 개발자도구  
+4일차 → CSS 기초 선택자 및 코드 순서 관례  
+5일차 → CSS 고급 선택자, 박스모델/Flex, 애니메이션·포지셔닝, Grid 레이아웃  
+6일차 → 미디어쿼리, CSS 변수, 그림자·전환, 가상 요소, CSS 리셋  
+7일차 → HTML/CSS 미니 프로젝트 (웹사이트 분석 · 학습 정리 · 퀴즈)
 
 ---
 
 **Author:** ndopy  
-**Last Updated:** 2026-07-02
+**Last Updated:** 2026-07-03
