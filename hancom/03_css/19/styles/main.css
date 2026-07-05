@@ -346,50 +346,6 @@ body {
   margin: 4px 0 32px;
 }
 
-.intro-break-mobile {
-  display: none;
-}
-
-@media (max-width: 599px) {
-  .intro-break-mobile {
-    display: inline;
-  }
-}
-
-.proof-trigger {
-  position: relative;
-  z-index: 999;
-  cursor: pointer;
-  border-bottom: 1px dashed var(--color-text-secondary);
-}
-
-.intro-proof {
-  position: absolute;
-  top: calc(100% + 12px);
-  left: 50%;
-  width: 300px;
-  max-width: 75vw;
-  height: auto;
-  transform: translateX(-50%) translateY(-6px);
-  border: 1px solid var(--color-border);
-  border-radius: 14px;
-  box-shadow: var(--shadow-card-hover);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  z-index: 30;
-  transition: opacity 0.25s var(--ease-apple), transform 0.25s var(--ease-apple),
-    visibility 0.25s;
-}
-
-.proof-trigger:hover .intro-proof,
-.proof-trigger:focus-visible .intro-proof,
-.proof-trigger:active .intro-proof {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
-}
-
 /* ---------- 콘텐츠 타이포그래피 (분석/정리 페이지) ---------- */
 .content-main h2 {
   font-size: 26px;
