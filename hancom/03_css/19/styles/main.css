@@ -1121,3 +1121,69 @@ body {
     animation-timeline: none;
   }
 }
+
+/* ---------- 404 페이지 ---------- */
+.error-main {
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 96px 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: fade-in-up 0.6s var(--ease-apple) both;
+}
+
+.error-code {
+  margin: 0;
+  font-size: clamp(72px, 18vw, 140px);
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.error-title {
+  margin: 20px 0 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.error-desc {
+  margin: 12px 0 0;
+  font-size: 15px;
+  color: var(--color-text-secondary);
+}
+
+.error-home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 32px;
+  padding: 12px 28px;
+  border-radius: 999px;
+  background-color: var(--color-accent);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.2s var(--ease-apple), box-shadow 0.2s var(--ease-apple);
+}
+
+.error-home-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .error-main {
+    animation: none;
+  }
+}
