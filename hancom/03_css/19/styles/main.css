@@ -17,6 +17,8 @@
   --glass-bg: rgba(255, 255, 255, 0.55);
   --glass-border: rgba(255, 255, 255, 0.75);
   --glass-sheen: rgba(255, 255, 255, 0.55);
+  --color-correct: #2fae56;
+  --color-incorrect: #e5484d;
 }
 
 /* 다크모드 토글 체크박스가 체크되면(:checked) body 전체 변수를 다크 팔레트로 덮어씀 */
@@ -38,6 +40,8 @@ body:has(#theme-toggle-input:checked) {
   --glass-bg: rgba(60, 60, 67, 0.4);
   --glass-border: rgba(255, 255, 255, 0.16);
   --glass-sheen: rgba(255, 255, 255, 0.14);
+  --color-correct: #32d74b;
+  --color-incorrect: #ff453a;
 }
 
 * {
@@ -718,15 +722,160 @@ body {
 }
 
 .quiz-choices {
-  list-style: upper-alpha;
-  margin: 0 0 18px;
-  padding-left: 24px;
-  font-size: 15px;
-  line-height: 1.7;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 0 4px;
 }
 
-.quiz-choices li {
-  margin-bottom: 8px;
+.quiz-radio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.quiz-choice {
+  display: block;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1.5;
+  transition: border-color 0.2s var(--ease-apple), background-color 0.2s var(--ease-apple);
+}
+
+.quiz-choice:hover {
+  border-color: var(--color-accent);
+}
+
+.quiz-radio:focus-visible + .quiz-choice {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* 선택한 항목은 일단 오답(빨강) 색으로, 정답 라벨은 아래 규칙에서 초록으로 덮어씀 */
+.quiz-radio:checked + .quiz-choice {
+  border-color: var(--color-incorrect);
+  background-color: color-mix(in srgb, var(--color-incorrect) 12%, transparent);
+  font-weight: 600;
+}
+
+/* 하나라도 선택되면 이 문제의 모든 선택지를 잠금(재클릭 방지) */
+.quiz-choices:has(.quiz-radio:checked) .quiz-choice {
+  pointer-events: none;
+  cursor: default;
+}
+
+/* 정답 라벨: 이 문제에서 무엇이든 하나라도 선택되면 항상 초록으로 표시 */
+.quiz-item:has(.quiz-radio:checked) label[for="q1-d"],
+.quiz-item:has(.quiz-radio:checked) label[for="q3-d"],
+.quiz-item:has(.quiz-radio:checked) label[for="q5-b"] {
+  border-color: var(--color-correct);
+  background-color: color-mix(in srgb, var(--color-correct) 14%, transparent);
+  font-weight: 600;
+}
+
+/* 정답/해설 자동 등장 */
+.quiz-reveal-auto {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s var(--ease-apple), opacity 0.3s var(--ease-apple);
+}
+
+.quiz-item:has(.quiz-radio:checked) .quiz-reveal-auto {
+  max-height: 600px;
+  opacity: 1;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--color-border);
+}
+
+.quiz-reveal-auto p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+.quiz-reveal-auto p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- 주관식: input + 제출 버튼 ---------- */
+.quiz-submit-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.quiz-input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 14px;
+  transition: border-color 0.2s var(--ease-apple), opacity 0.2s var(--ease-apple);
+}
+
+.quiz-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.quiz-submit-checkbox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.quiz-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border-radius: 10px;
+  background-color: var(--color-accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s var(--ease-apple);
+}
+
+.quiz-submit-btn:hover {
+  opacity: 0.85;
+}
+
+.quiz-submit-checkbox:focus-visible + .quiz-submit-btn {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* 제출 후: input/버튼 잠금 + 시각적 비활성화 */
+.quiz-subjective:has(.quiz-submit-checkbox:checked) .quiz-input,
+.quiz-subjective:has(.quiz-submit-checkbox:checked) .quiz-submit-btn {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.quiz-subjective:has(.quiz-submit-checkbox:checked) .quiz-submit-btn::after {
+  content: " ✓";
+}
+
+/* 제출 후: 정답/해설 자동 등장 (기존 .quiz-reveal-auto 재사용) */
+.quiz-subjective:has(.quiz-submit-checkbox:checked) .quiz-reveal-auto {
+  max-height: 600px;
+  opacity: 1;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--color-border);
 }
 
 .quiz-item pre {
