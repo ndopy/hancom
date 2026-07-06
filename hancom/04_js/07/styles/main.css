@@ -1,0 +1,19 @@
+/* 계산 결과(id="out")를 크고 굵게 */
+#out {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 12px;
+}
+
+/* 숫자 입력칸은 좁게 */
+input {
+  width: 60px;
+  padding: 6px;
+  font-size: 14px;
+}
+
+/* 버튼에 안쪽 여백 */
+button {
+  padding: 6px 14px;
+  font-size: 14px;
+}
