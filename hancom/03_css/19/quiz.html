@@ -24,6 +24,7 @@
     <title>퀴즈 · HTML/CSS 미니 프로젝트</title>
   </head>
   <body>
+    <a href="#main-content" class="skip-link">본문으로 바로가기</a>
     <div class="scroll-progress" aria-hidden="true"></div>
     <header class="page-header">
       <h1>HTML/CSS 미니 프로젝트</h1>
@@ -42,7 +43,7 @@
     </label>
     <a href="#" class="back-to-top" aria-label="맨 위로 이동">↑</a>
 
-    <main class="content-main">
+    <main class="content-main" id="main-content">
       <h2>3. 퀴즈</h2>
       <p>
         정답을 맞히는 것보다, 실제로 헷갈리기 쉬운 개념을 짚어보는 데 목적을 두고 문제를
@@ -92,7 +93,7 @@
               placeholder="여기에 답을 적어보세요"
               autocomplete="off"
             />
-            <input type="checkbox" id="q2-submit" class="quiz-submit-checkbox" />
+            <input type="checkbox" id="q2-submit" class="quiz-submit-checkbox" role="button" />
             <label for="q2-submit" class="quiz-submit-btn">제출</label>
           </div>
           <div class="quiz-reveal-auto" aria-live="polite">
@@ -158,7 +159,7 @@
               placeholder="여기에 답을 적어보세요"
               autocomplete="off"
             />
-            <input type="checkbox" id="q4-submit" class="quiz-submit-checkbox" />
+            <input type="checkbox" id="q4-submit" class="quiz-submit-checkbox" role="button" />
             <label for="q4-submit" class="quiz-submit-btn">제출</label>
           </div>
           <div class="quiz-reveal-auto" aria-live="polite">
