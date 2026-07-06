@@ -568,6 +568,22 @@ body {
   border-radius: 12px;
 }
 
+.gif-reveal {
+  margin: 12px 0;
+}
+
+.gif-reveal summary {
+  display: inline-block;
+  cursor: pointer;
+  color: var(--color-accent);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.gif-reveal img {
+  margin-top: 12px;
+}
+
 .content-main code {
   font-family: "SFMono-Regular", Consolas, monospace;
   font-size: 13px;
@@ -623,6 +639,15 @@ body {
   margin: 0 0 24px;
   border: 1px solid var(--color-border);
   border-radius: 12px;
+}
+
+.table-caption {
+  padding: 10px 14px 0;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  caption-side: top;
 }
 
 .content-main table {
