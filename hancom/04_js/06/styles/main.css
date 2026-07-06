@@ -1,0 +1,13 @@
+/* 결과 문장(id="result")을 크고 굵게 */
+#result {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 12px;
+}
+
+/* 선택 목록과 버튼에 안쪽 여백 */
+select,
+button {
+  padding: 8px 12px;
+  font-size: 14px;
+}
