@@ -1,0 +1,20 @@
+/* 숫자 입력칸은 좁게 */
+input {
+  width: 60px;
+  padding: 6px;
+  font-size: 14px;
+}
+
+/* 기호 선택과 버튼에 여백 */
+select,
+button {
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
+/* 결과(id="out")를 크고 굵게 */
+#out {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 12px;
+}
