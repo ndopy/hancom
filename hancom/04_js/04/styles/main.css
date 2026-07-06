@@ -1,0 +1,13 @@
+/* 버튼들에 여백 + 사이 간격 */
+button {
+  padding: 8px 12px;
+  font-size: 14px;
+  margin: 2px;
+}
+
+/* 결과(id="out")를 크고 굵게 */
+#out {
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 12px;
+}
