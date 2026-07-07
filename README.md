@@ -50,6 +50,9 @@
 - 조건문(if-else)을 활용한 분기 처리
 - 단일 책임 원칙(SRP) 기반 함수 설계 — 순수 로직과 DOM 조작 분리
 - 함수형 프로그래밍 기초 개념(pipe를 이용한 함수 합성)
+- ES6 class 문법(constructor, 인스턴스 메서드)과 배열 메서드 활용
+- console 객체를 이용한 디버깅(log, typeof 확인)과 debugger 문
+- fetch API를 이용한 CRUD 실습(GET/POST/PUT/DELETE)
 
 ### 실습 프로젝트
 - 학습한 HTML 기술을 활용한 개인 포트폴리오 웹사이트
@@ -71,10 +74,11 @@ open hancom/02_html/34_index.html
 4일차 → CSS 기초 선택자 및 코드 순서 관례  
 5일차 → CSS 고급 선택자, 박스모델/Flex, 애니메이션·포지셔닝, Grid 레이아웃  
 6일차 → 미디어쿼리, CSS 변수, 그림자·전환, 가상 요소, CSS 리셋  
-7일차 → HTML/CSS 미니 프로젝트 (웹사이트 분석 · 학습 정리 · 퀴즈)
-8일차 → JS 기초 문법, DOM 조작·이벤트 핸들링, 조건문, SRP 기반 함수 설계
+7일차 → HTML/CSS 미니 프로젝트 (웹사이트 분석 · 학습 정리 · 퀴즈)  
+8일차 → JS 기초 문법, DOM 조작·이벤트 핸들링, 조건문, SRP 기반 함수 설계  
+9일차 → JS 클래스와 배열, 콘솔·디버거 활용, fetch 기반 CRUD 실습, HTML/CSS/JS 미니 프로젝트(카드 매칭 게임) 기획서 작성
 
 ---
 
 **Author:** ndopy  
-**Last Updated:** 2026-07-06
+**Last Updated:** 2026-07-07
