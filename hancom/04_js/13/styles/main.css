@@ -1,0 +1,21 @@
+input,
+button {
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+#message {
+  font-size: 14px;
+  color: red;
+}
+
+#output {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 12px;
+}
+
+#info {
+  color: #555;
+  margin-top: 4px;
+}
