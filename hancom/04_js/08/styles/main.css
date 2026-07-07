@@ -1,0 +1,11 @@
+#btn {
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+#count {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 12px;
+}
