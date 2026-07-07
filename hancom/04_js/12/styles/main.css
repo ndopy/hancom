@@ -1,0 +1,12 @@
+input,
+button {
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+#output {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.8;
+  margin-top: 12px;
+}
