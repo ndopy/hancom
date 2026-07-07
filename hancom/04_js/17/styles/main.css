@@ -1,0 +1,31 @@
+body {
+  font-family: sans-serif;
+  padding: 24px;
+  color: #24292f;
+}
+
+.note {
+  color: #666;
+  font-size: 13px;
+}
+
+.btn-row {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+button {
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#out {
+  background-color: #0d1117;
+  color: #e6edf3;
+  padding: 12px;
+  border-radius: 6px;
+  min-height: 60px;
+  white-space: pre-wrap;
+}

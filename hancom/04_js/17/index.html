@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="./styles/main.css" />
+    <script defer src="./scripts/main.js"></script>
+
+    <title>서버 연동 (CRUD)</title>
+  </head>
+  <body>
+    <h1>사용자 CRUD</h1>
+    <p class="note">
+      먼저 이 폴더에서 <code>npm install json-server</code> 후 <br />
+      <code>npx json-server db.json</code> 실행 필요
+    </p>
+
+    <div class="btn-row">
+      <button id="btn-create">CREATE (John 추가)</button>
+      <button id="btn-read">READ (목록 조회)</button>
+      <button id="btn-update">UPDATE (1번 유저 -> JANE)</button>
+      <button id="btn-delete">DELETE (1번 유저 제거)</button>
+    </div>
+
+    <pre id="out"></pre>
+  </body>
+</html>
