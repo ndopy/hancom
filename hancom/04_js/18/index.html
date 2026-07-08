@@ -4,10 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./styles/main.css" />
     <script defer src="./scripts/main.js"></script>
 
-    <title>Document</title>
+    <title>카드 뒤집기 게임</title>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <h1>카드 뒤집기 게임</h1>
+    </header>
+
+    <div id="game-container">
+      <section id="info">
+        시도 횟수 : <span id="counter"></span> 경과 시간 :
+        <span id="timer"></span>
+      </section>
+
+      <div id="card-container"></div>
+    </div>
+
+    <div id="start-modal" class="modal">
+      <div class="modal-content">
+        <p class="modal-title">카드 뒤집기 게임</p>
+        <button id="start">Start!</button>
+      </div>
+    </div>
+
+    <div id="win-modal" class="modal hidden">
+      <div class="modal-content">
+        <p id="message" class="modal-title"></p>
+        <button id="confirm">확인</button>
+      </div>
+    </div>
+  </body>
 </html>

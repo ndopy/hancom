@@ -1,0 +1,174 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 1.25rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Press Start 2P", monospace;
+  color: #e5e5e5;
+  background-color: #1a1a2e;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 10px 10px;
+}
+
+header h1 {
+  color: #39ff9d;
+  font-size: 1.1rem;
+  text-align: center;
+  text-shadow: 3px 3px 0 #000;
+  margin-bottom: 1rem;
+}
+
+#game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+#info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 0.7rem;
+  line-height: 1.4;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 10;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2.5rem 2rem;
+  background-color: #16213e;
+  border: 3px solid #39ff9d;
+  box-shadow: 6px 6px 0 #000;
+}
+
+.modal-title {
+  margin: 0;
+  color: #ffd23f;
+  font-size: 1rem;
+  text-align: center;
+  line-height: 1.8;
+}
+
+#start,
+#confirm {
+  padding: 0.9rem 1.6rem;
+  background-color: #ff5e78;
+  color: #1a1a2e;
+  border: 3px solid #1a1a2e;
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #000;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+}
+
+#start:hover,
+#confirm:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
+}
+
+#card-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.6rem;
+}
+
+.card {
+  width: 100px;
+  height: 135px;
+  cursor: pointer;
+  perspective: 500px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s ease;
+  transform-style: preserve-3d;
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backface-visibility: hidden;
+  box-sizing: border-box;
+}
+
+.card-front {
+  background-color: #16213e;
+  border: 3px solid #39ff9d;
+}
+
+.card-front::after {
+  content: "?";
+  color: #39ff9d;
+  font-size: 1.3rem;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  background-color: #f5f5f5;
+  border: 3px solid #1a1a2e;
+  font-size: 1.8rem;
+}
+
+.card.is-flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card:not(.is-flipped):hover .card-inner {
+  transform: scale(1.05);
+}
+
+@keyframes sparkle {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 rgba(255, 210, 63, 0));
+  }
+  40% {
+    transform: scale(1.18);
+    filter: drop-shadow(0 0 14px rgba(255, 210, 63, 0.95));
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 rgba(255, 210, 63, 0));
+  }
+}
+
+.card.is-matched {
+  animation: sparkle 0.6s ease-out;
+}
+
+.card.is-matched .card-back {
+  border-color: #ffd23f;
+}
