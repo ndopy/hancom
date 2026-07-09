@@ -1,0 +1,14 @@
+.box {
+  padding: 20px;
+  background: black;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.box h1 {
+  color: yellowgreen;
+}
+
+.box p {
+  color: white;
+}
