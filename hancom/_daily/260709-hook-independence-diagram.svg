@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" font-family="'Pretendard','Apple SD Gothic Neo',sans-serif">
+  <rect x="0" y="0" width="880" height="440" fill="#ffffff"/>
+
+  <text x="440" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">같은 커스텀 훅, 다른 컴포넌트 = 독립된 state</text>
+
+  <!-- template box -->
+  <rect x="315" y="60" width="250" height="60" rx="10" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="440" y="86" text-anchor="middle" font-size="14" font-weight="700" fill="#713f12">useFetchUser</text>
+  <text x="440" y="105" text-anchor="middle" font-size="11" fill="#854d0e">로직(설계도) — state를 소유하지 않는다</text>
+
+  <!-- lines to A and B -->
+  <line x1="380" y1="120" x2="220" y2="175" stroke="#ca8a04" stroke-width="1.5" marker-end="url(#arrowY)"/>
+  <line x1="500" y1="120" x2="660" y2="175" stroke="#ca8a04" stroke-width="1.5" marker-end="url(#arrowY)"/>
+  <text x="270" y="150" font-size="11" fill="#854d0e">호출</text>
+  <text x="600" y="150" font-size="11" fill="#854d0e">호출</text>
+
+  <!-- A fiber -->
+  <g>
+    <rect x="70" y="180" width="300" height="200" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="220" y="208" text-anchor="middle" font-size="14" font-weight="700" fill="#14532d">A 컴포넌트 (fiber)</text>
+
+    <rect x="100" y="228" width="240" height="50" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="220" y="248" text-anchor="middle" font-size="12" font-weight="700" fill="#14532d">hook: user, setUser</text>
+    <text x="220" y="265" text-anchor="middle" font-size="11" fill="#166534">값: "Alice"</text>
+
+    <text x="220" y="305" text-anchor="middle" font-size="12" fill="#166534">currentlyRenderingFiber = A일 때</text>
+    <text x="220" y="325" text-anchor="middle" font-size="12" fill="#166534">이 슬롯에 연결된다</text>
+    <text x="220" y="355" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">B와 완전히 별개인 저장 공간이다</text>
+  </g>
+
+  <!-- B fiber -->
+  <g>
+    <rect x="510" y="180" width="300" height="200" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="660" y="208" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">B 컴포넌트 (fiber)</text>
+
+    <rect x="540" y="228" width="240" height="50" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="660" y="248" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a8a">hook: user, setUser</text>
+    <text x="660" y="265" text-anchor="middle" font-size="11" fill="#1e40af">값: "Bob"</text>
+
+    <text x="660" y="305" text-anchor="middle" font-size="12" fill="#1e40af">currentlyRenderingFiber = B일 때</text>
+    <text x="660" y="325" text-anchor="middle" font-size="12" fill="#1e40af">이 슬롯에 연결된다</text>
+    <text x="660" y="355" text-anchor="middle" font-size="12" font-weight="600" fill="#1e3a8a">A와 완전히 별개인 저장 공간이다</text>
+  </g>
+
+  <text x="440" y="412" text-anchor="middle" font-size="12" fill="#475569">→ 재사용되는 건 "로직"이고, 저장되는 "상태"는 호출한 컴포넌트마다 독립적으로 생성된다</text>
+
+  <defs>
+    <marker id="arrowY" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#ca8a04"/>
+    </marker>
+  </defs>
+</svg>

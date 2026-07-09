@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 860" font-family="'Pretendard','Apple SD Gothic Neo',sans-serif">
+  <rect x="0" y="0" width="900" height="860" fill="#ffffff"/>
+
+  <text x="450" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">훅 연결 리스트: mount에서 한 번 만들어지고, 이후엔 정해진 순서대로 재순회만 한다</text>
+
+  <!-- ============ PANEL 1: MOUNT ============ -->
+  <g>
+    <text x="450" y="78" text-anchor="middle" font-size="15" font-weight="700" fill="#1e3a8a">① Mount — 아직 리스트가 없는 상태에서 호출마다 새 노드를 만든다</text>
+
+    <text x="270" y="110" text-anchor="middle" font-size="11" fill="#64748b">1번째 호출</text>
+    <text x="270" y="124" text-anchor="middle" font-size="11" fill="#64748b">useState(count)</text>
+    <line x1="270" y1="128" x2="270" y2="150" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+
+    <text x="450" y="110" text-anchor="middle" font-size="11" fill="#64748b">2번째 호출</text>
+    <text x="450" y="124" text-anchor="middle" font-size="11" fill="#64748b">useState(extra)</text>
+    <line x1="450" y1="128" x2="450" y2="150" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+
+    <text x="630" y="110" text-anchor="middle" font-size="11" fill="#64748b">3번째 호출</text>
+    <text x="630" y="124" text-anchor="middle" font-size="11" fill="#64748b">useState(name)</text>
+    <line x1="630" y1="128" x2="630" y2="150" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+
+    <text x="120" y="182" text-anchor="middle" font-size="10" fill="#94a3b8">fiber.memoizedState*</text>
+    <text x="120" y="196" text-anchor="middle" font-size="10" fill="#94a3b8">= null</text>
+    <line x1="150" y1="180" x2="195" y2="180" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="195" y="155" width="150" height="50" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="270" y="176" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a8a">node 0</text>
+    <text x="270" y="193" text-anchor="middle" font-size="11" fill="#1e3a8a">(count 용, 새로 생성된다)</text>
+
+    <line x1="345" y1="180" x2="375" y2="180" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="375" y="155" width="150" height="50" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="450" y="176" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a8a">node 1</text>
+    <text x="450" y="193" text-anchor="middle" font-size="11" fill="#1e3a8a">(extra 용, 새로 생성된다)</text>
+
+    <line x1="525" y1="180" x2="555" y2="180" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="555" y="155" width="150" height="50" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="630" y="176" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a8a">node 2</text>
+    <text x="630" y="193" text-anchor="middle" font-size="11" fill="#1e3a8a">(name 용, 새로 생성된다)</text>
+
+    <text x="450" y="235" text-anchor="middle" font-size="12" fill="#334155">이 3개짜리 리스트의 "모양"(개수·순서)이 이후 모든 렌더링의 기준으로 고정된다.</text>
+  </g>
+
+  <line x1="60" y1="265" x2="840" y2="265" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- ============ PANEL 2: UPDATE, SAME ORDER ============ -->
+  <g>
+    <text x="450" y="300" text-anchor="middle" font-size="15" font-weight="700" fill="#14532d">② Update — showExtra가 그대로 true일 때: 같은 리스트를 처음부터 재순회한다 (새 노드는 만들지 않는다)</text>
+
+    <text x="270" y="332" text-anchor="middle" font-size="11" fill="#166534">1번째 호출 ✓</text>
+    <line x1="270" y1="336" x2="270" y2="358" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+
+    <text x="450" y="332" text-anchor="middle" font-size="11" fill="#166534">2번째 호출 ✓</text>
+    <line x1="450" y1="336" x2="450" y2="358" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+
+    <text x="630" y="332" text-anchor="middle" font-size="11" fill="#166534">3번째 호출 ✓</text>
+    <line x1="630" y1="336" x2="630" y2="358" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+
+    <rect x="195" y="363" width="150" height="50" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="270" y="384" text-anchor="middle" font-size="12" font-weight="700" fill="#14532d">node 0</text>
+    <text x="270" y="401" text-anchor="middle" font-size="11" fill="#14532d">count → 정상 매칭된다</text>
+
+    <line x1="345" y1="388" x2="375" y2="388" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="375" y="363" width="150" height="50" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="450" y="384" text-anchor="middle" font-size="12" font-weight="700" fill="#14532d">node 1</text>
+    <text x="450" y="401" text-anchor="middle" font-size="11" fill="#14532d">extra → 정상 매칭된다</text>
+
+    <line x1="525" y1="388" x2="555" y2="388" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="555" y="363" width="150" height="50" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="630" y="384" text-anchor="middle" font-size="12" font-weight="700" fill="#14532d">node 2</text>
+    <text x="630" y="401" text-anchor="middle" font-size="11" fill="#14532d">name → 정상 매칭된다</text>
+
+    <text x="450" y="443" text-anchor="middle" font-size="12" fill="#334155">호출 순서가 mount 때와 같아서, 커서가 node0→node1→node2로 정확히 이동한다.</text>
+  </g>
+
+  <line x1="60" y1="473" x2="840" y2="473" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- ============ PANEL 3: UPDATE, ORDER CHANGED ============ -->
+  <g>
+    <text x="450" y="508" text-anchor="middle" font-size="15" font-weight="700" fill="#7f1d1d">③ Update — showExtra가 false로 바뀌었을 때: 호출 순서가 밀리며 엉뚱한 노드와 연결된다</text>
+
+    <text x="270" y="540" text-anchor="middle" font-size="11" fill="#166534">1번째 호출: count</text>
+    <line x1="270" y1="544" x2="270" y2="566" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+
+    <text x="450" y="540" text-anchor="middle" font-size="11" fill="#b91c1c" font-weight="700">2번째 호출: name</text>
+    <line x1="450" y1="544" x2="450" y2="566" stroke="#dc2626" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+
+    <text x="630" y="540" text-anchor="middle" font-size="11" fill="#94a3b8">호출이 없다</text>
+    <text x="630" y="554" text-anchor="middle" font-size="11" fill="#94a3b8">(if 분기를 안 탔다)</text>
+
+    <rect x="195" y="571" width="150" height="50" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="270" y="592" text-anchor="middle" font-size="12" font-weight="700" fill="#14532d">node 0</text>
+    <text x="270" y="609" text-anchor="middle" font-size="11" fill="#14532d">count → 정상 매칭된다</text>
+
+    <line x1="345" y1="596" x2="375" y2="596" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="375" y="571" width="150" height="50" rx="8" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+    <text x="450" y="590" text-anchor="middle" font-size="12" font-weight="700" fill="#7f1d1d">node 1 (extra 용)</text>
+    <text x="450" y="607" text-anchor="middle" font-size="11" fill="#7f1d1d">→ 사실은 name이 받아간다</text>
+
+    <line x1="525" y1="596" x2="555" y2="596" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="555" y="571" width="150" height="50" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="630" y="590" text-anchor="middle" font-size="12" fill="#64748b">node 2 (name 용)</text>
+    <text x="630" y="607" text-anchor="middle" font-size="11" fill="#64748b">이번 렌더링엔 방치된다</text>
+
+    <text x="450" y="650" text-anchor="middle" font-size="12" fill="#334155">extra의 useState 호출이 건너뛰어지면서, 두 번째로 불린 게 원래 node1(extra 자리)과</text>
+    <text x="450" y="668" text-anchor="middle" font-size="12" fill="#334155">매칭돼버린다. name이 자기 상태 대신 extra의 값(과 setExtra)을 잘못 받는 사고가 발생한다.</text>
+  </g>
+
+  <text x="450" y="720" text-anchor="middle" font-size="12" font-weight="600" fill="#1a1a1a">리스트의 "모양"은 mount 때 고정되고, 이후 호출 횟수·순서가 그 모양과 어긋나면 잘못된 노드와 연결된다.</text>
+
+  <text x="450" y="748" text-anchor="middle" font-size="10" font-style="italic" fill="#94a3b8">* memoizedState는 설명을 위해 붙인 이름이 아니라, React 소스코드(react-reconciler/ReactFiberHooks.js)에 실제로 있는 필드명이다.</text>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#16a34a"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+</svg>

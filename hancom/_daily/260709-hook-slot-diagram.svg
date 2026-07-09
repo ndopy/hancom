@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" font-family="'Pretendard','Apple SD Gothic Neo',sans-serif">
+  <rect x="0" y="0" width="880" height="420" fill="#ffffff"/>
+
+  <text x="440" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">useState는 어떻게 "몇 번째 훅인지" 아는가</text>
+
+  <!-- call stack column -->
+  <g>
+    <text x="40" y="76" font-size="13" font-weight="700" fill="#475569">렌더링 중 호출 스택</text>
+
+    <rect x="40" y="90" width="230" height="46" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="155" y="118" text-anchor="middle" font-size="14" fill="#1e3a8a">UserProfile({ userId })</text>
+
+    <line x1="155" y1="136" x2="155" y2="160" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="40" y="160" width="230" height="46" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="155" y="188" text-anchor="middle" font-size="14" fill="#1e3a8a">useFetchUser(userId)</text>
+
+    <line x1="155" y1="206" x2="155" y2="230" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="40" y="230" width="230" height="46" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="155" y="258" text-anchor="middle" font-size="14" fill="#1e3a8a">useState(null)</text>
+
+    <text x="155" y="300" text-anchor="middle" font-size="12" fill="#64748b">호출이 몇 겹 중첩돼도</text>
+    <text x="155" y="318" text-anchor="middle" font-size="12" fill="#64748b">currentlyRenderingFiber는</text>
+    <text x="155" y="336" text-anchor="middle" font-size="12" fill="#64748b">여전히 UserProfile을 가리킨다</text>
+  </g>
+
+  <!-- arrow across -->
+  <line x1="285" y1="253" x2="365" y2="253" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <text x="325" y="240" text-anchor="middle" font-size="11" fill="#2563eb">연결</text>
+
+  <!-- fiber box -->
+  <g>
+    <text x="620" y="76" font-size="13" font-weight="700" fill="#475569">UserProfile의 fiber (훅 연결 리스트)</text>
+    <rect x="380" y="90" width="470" height="270" rx="10" fill="#f8fafc" stroke="#334155" stroke-width="1.5"/>
+
+    <!-- hook nodes -->
+    <rect x="405" y="115" width="130" height="50" rx="8" fill="#f1f5f9" stroke="#94a3b8"/>
+    <text x="470" y="136" text-anchor="middle" font-size="12" fill="#1a1a1a">hook #1</text>
+    <text x="470" y="153" text-anchor="middle" font-size="11" fill="#64748b">(다른 useState)</text>
+
+    <line x1="535" y1="140" x2="565" y2="140" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="565" y="115" width="150" height="50" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <text x="640" y="134" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a8a">hook #2</text>
+    <text x="640" y="151" text-anchor="middle" font-size="11" fill="#1e3a8a">user, setUser ← 여기</text>
+
+    <line x1="715" y1="140" x2="745" y2="140" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="745" y="115" width="90" height="50" rx="8" fill="#f1f5f9" stroke="#94a3b8"/>
+    <text x="790" y="136" text-anchor="middle" font-size="12" fill="#1a1a1a">hook #3</text>
+    <text x="790" y="153" text-anchor="middle" font-size="11" fill="#64748b">(useEffect)</text>
+
+    <line x1="640" y1="240" x2="640" y2="165" stroke="#2563eb" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrowBlue)"/>
+    <text x="640" y="260" text-anchor="middle" font-size="12" fill="#1e3a8a" font-weight="600">"다음 슬롯"에 배정된다</text>
+
+    <text x="620" y="300" text-anchor="middle" font-size="12" fill="#334155">슬롯 배정 기준은 훅의 이름이 아니라</text>
+    <text x="620" y="318" text-anchor="middle" font-size="12" fill="#334155">이 렌더링에서의 호출 순서(인덱스)다</text>
+    <text x="620" y="342" text-anchor="middle" font-size="11" fill="#64748b">→ 조건문/반복문 안에서 훅 호출이 금지되는 이유다</text>
+  </g>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+</svg>
