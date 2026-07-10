@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 580" font-family="'Pretendard','Apple SD Gothic Neo',sans-serif">
+  <rect x="0" y="0" width="940" height="580" fill="#ffffff"/>
+
+  <text x="470" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">클로저: 렌더링마다 독립된 실행 컨텍스트를 함수가 붙잡는다</text>
+  <text x="470" y="56" text-anchor="middle" font-size="12" fill="#64748b">Counter 컴포넌트가 두 번 렌더링될 때, 각 실행의 count와 onClick 관계</text>
+
+  <!-- LEFT: render #1 -->
+  <g>
+    <text x="45" y="86" font-size="13" font-weight="700" fill="#475569">Counter() 호출 #1 — 최초 렌더링(mount)</text>
+    <rect x="40" y="98" width="400" height="382" rx="10" fill="#f8fafc" stroke="#334155" stroke-width="1.5"/>
+
+    <rect x="70" y="130" width="150" height="50" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <text x="145" y="161" text-anchor="middle" font-size="15" font-weight="700" fill="#1e3a8a">count = 0</text>
+
+    <line x1="145" y1="230" x2="145" y2="182" stroke="#2563eb" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrowBlue)"/>
+    <text x="255" y="205" text-anchor="middle" font-size="11" fill="#2563eb">정의될 때 count를 클로저로 캡처</text>
+
+    <rect x="70" y="230" width="330" height="90" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="85" y="256" font-size="12.5" fill="#1e3a8a">const onClick = () =&gt; {</text>
+    <text x="100" y="278" font-size="12.5" fill="#1e3a8a">setCount(count + 1)  <tspan fill="#64748b">// 클릭 시 ×3 호출</tspan></text>
+    <text x="85" y="300" font-size="12.5" fill="#1e3a8a">}</text>
+
+    <text x="235" y="350" text-anchor="middle" font-size="11.5" fill="#64748b">클릭 3번 → 매번 같은 count(0)를 읽음 → 결과는 항상 1</text>
+
+    <text x="235" y="398" text-anchor="middle" font-size="12" fill="#334155">이 onClick이 나중에(예: 예전 렌더링의</text>
+    <text x="235" y="420" text-anchor="middle" font-size="12" fill="#334155">클로저가 setTimeout에 남아) 실행돼도</text>
+    <text x="235" y="442" text-anchor="middle" font-size="12" fill="#334155">여전히 count = 0만 가리킨다</text>
+  </g>
+
+  <!-- middle arrow -->
+  <line x1="440" y1="155" x2="500" y2="155" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <text x="470" y="138" text-anchor="middle" font-size="11.5" font-weight="600" fill="#2563eb">리렌더링 =</text>
+  <text x="470" y="176" text-anchor="middle" font-size="11.5" font-weight="600" fill="#2563eb">재호출</text>
+
+  <!-- RIGHT: render #2 -->
+  <g>
+    <text x="505" y="86" font-size="13" font-weight="700" fill="#475569">Counter() 호출 #2 — 리렌더링(update)</text>
+    <rect x="500" y="98" width="400" height="382" rx="10" fill="#f8fafc" stroke="#334155" stroke-width="1.5"/>
+
+    <rect x="530" y="130" width="150" height="50" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <text x="605" y="161" text-anchor="middle" font-size="15" font-weight="700" fill="#1e3a8a">count = 1</text>
+
+    <line x1="605" y1="230" x2="605" y2="182" stroke="#2563eb" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrowBlue)"/>
+    <text x="715" y="205" text-anchor="middle" font-size="11" fill="#2563eb">이번 실행의 count를 새로 캡처</text>
+
+    <rect x="530" y="230" width="330" height="90" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="545" y="256" font-size="12.5" fill="#1e3a8a">const onClick = () =&gt; {  <tspan fill="#64748b">// 완전히 새 함수</tspan></text>
+    <text x="560" y="278" font-size="12.5" fill="#1e3a8a">setCount(count + 1)</text>
+    <text x="545" y="300" font-size="12.5" fill="#1e3a8a">}</text>
+
+    <text x="695" y="350" text-anchor="middle" font-size="11.5" fill="#64748b">클릭 3번 → 매번 같은 count(1)를 읽음 → 결과는 항상 2</text>
+
+    <text x="695" y="398" text-anchor="middle" font-size="12" fill="#334155">호출 #1의 onClick과는</text>
+    <text x="695" y="420" text-anchor="middle" font-size="12" fill="#334155">완전히 별개의 함수·별개의 count다</text>
+    <text x="695" y="442" text-anchor="middle" font-size="12" fill="#334155">(같은 이름일 뿐 같은 실체가 아님)</text>
+  </g>
+
+  <!-- bottom summary -->
+  <text x="470" y="512" text-anchor="middle" font-size="13" fill="#334155">각 실행(렌더링)마다 count는 새로 생기는 상수이고, 그 실행에서 정의된 onClick은</text>
+  <text x="470" y="534" text-anchor="middle" font-size="13" fill="#334155">오직 그 실행의 count만 클로저로 참조한다.</text>
+  <text x="470" y="560" text-anchor="middle" font-size="11.5" fill="#64748b">"클로저"는 이 함수 + count 참조가 하나로 묶인 조합, 그 자체를 가리키는 이름이다</text>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+</svg>
