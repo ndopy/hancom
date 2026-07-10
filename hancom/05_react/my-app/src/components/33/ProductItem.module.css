@@ -1,0 +1,16 @@
+.productContainer {
+  width: 500px;
+  margin: 3rem auto;
+  padding: 1rem;
+  border: 2px dashed black;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+}
+
+.addButton {
+  background-color: transparent;
+  border: 2px solid blue;
+}
