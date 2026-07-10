@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 860" font-family="'Pretendard','Apple SD Gothic Neo',sans-serif">
+  <rect x="0" y="0" width="900" height="860" fill="#ffffff"/>
+
+  <text x="450" y="34" text-anchor="middle" font-size="17" font-weight="700" fill="#1a1a1a">effect 안 setState, 왜 동기 호출은 경고고 .then 콜백 안 호출은 괜찮은가</text>
+
+  <!-- ============ PANEL 1: BASE CYCLE ============ -->
+  <g>
+    <text x="450" y="78" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">① 기본 렌더 사이클 — Render → Commit → Effect 순서는 마운트 시 항상 고정된다</text>
+
+    <rect x="100" y="110" width="220" height="55" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="210" y="132" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a8a">Render</text>
+    <text x="210" y="149" text-anchor="middle" font-size="11" fill="#1e3a8a">JSX 계산만 (순수 함수)</text>
+
+    <line x1="320" y1="137" x2="338" y2="137" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+
+    <rect x="340" y="110" width="220" height="55" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="450" y="132" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a8a">Commit</text>
+    <text x="450" y="149" text-anchor="middle" font-size="11" fill="#1e3a8a">DOM에 실제 반영</text>
+
+    <line x1="560" y1="137" x2="578" y2="137" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+
+    <rect x="580" y="110" width="220" height="55" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="690" y="132" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a8a">Effect 실행</text>
+    <text x="690" y="149" text-anchor="middle" font-size="11" fill="#1e3a8a">side effect 수행 (fetch 등)</text>
+
+    <text x="450" y="195" text-anchor="middle" font-size="12" fill="#334155">컴포넌트가 마운트되면 이 세 단계는 예외 없이, 항상 이 순서로 일어난다.</text>
+  </g>
+
+  <line x1="60" y1="225" x2="840" y2="225" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- ============ PANEL 2: SYNC setState ============ -->
+  <g>
+    <text x="450" y="260" text-anchor="middle" font-size="14" font-weight="700" fill="#7f1d1d">② 동기 setState — effect 몸체에서 즉시 호출하면, 이미 정해진 값을 뒤늦게 반영하는 재렌더가 추가된다</text>
+
+    <rect x="60" y="295" width="230" height="55" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="175" y="317" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a8a">Effect 실행</text>
+    <text x="175" y="334" text-anchor="middle" font-size="11" fill="#1e3a8a">fetchUsers() 호출</text>
+
+    <text x="335" y="313" text-anchor="middle" font-size="10" fill="#b91c1c">즉시</text>
+    <text x="335" y="326" text-anchor="middle" font-size="10" fill="#b91c1c">(동기)</text>
+    <line x1="290" y1="322" x2="333" y2="322" stroke="#dc2626" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+
+    <rect x="335" y="295" width="230" height="55" rx="8" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+    <text x="450" y="317" text-anchor="middle" font-size="12" font-weight="700" fill="#7f1d1d">setIsLoading(true)</text>
+    <text x="450" y="334" text-anchor="middle" font-size="11" fill="#7f1d1d">effect 몸체에서 바로 실행</text>
+
+    <line x1="565" y1="322" x2="583" y2="322" stroke="#dc2626" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+
+    <rect x="585" y="295" width="230" height="55" rx="8" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+    <text x="700" y="317" text-anchor="middle" font-size="12" font-weight="700" fill="#7f1d1d">재렌더 예약</text>
+    <text x="700" y="334" text-anchor="middle" font-size="11" fill="#7f1d1d">→ 렌더링 1회 추가</text>
+
+    <text x="450" y="378" text-anchor="middle" font-size="12" fill="#334155">true라는 값은 effect가 실행되기 전, 코드 작성 시점에 이미 정해져 있었다.</text>
+    <text x="450" y="398" text-anchor="middle" font-size="12" font-weight="700" fill="#b91c1c">→ 처음부터 useState(true)로 시작했다면 필요 없었던 렌더링</text>
+  </g>
+
+  <line x1="60" y1="425" x2="840" y2="425" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- ============ PANEL 3: ASYNC setState ============ -->
+  <g>
+    <text x="450" y="460" text-anchor="middle" font-size="14" font-weight="700" fill="#14532d">③ 비동기 setState — .then 콜백 안에서 호출하면, 외부 이벤트가 일어나야만 아는 값을 반영하는 정당한 재렌더다</text>
+
+    <rect x="45" y="495" width="190" height="55" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="140" y="517" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a8a">Effect 실행</text>
+    <text x="140" y="534" text-anchor="middle" font-size="11" fill="#1e3a8a">fetch(API) 호출</text>
+
+    <line x1="235" y1="522" x2="253" y2="522" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="255" y="495" width="190" height="55" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="350" y="517" text-anchor="middle" font-size="12" fill="#64748b">대기 중…</text>
+    <text x="350" y="534" text-anchor="middle" font-size="11" fill="#64748b">서버 응답 전까지 아무 일 없음</text>
+
+    <line x1="445" y1="522" x2="463" y2="522" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+
+    <rect x="465" y="495" width="190" height="55" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="560" y="517" text-anchor="middle" font-size="12" font-weight="700" fill="#14532d">응답 도착</text>
+    <text x="560" y="534" text-anchor="middle" font-size="11" fill="#14532d">.then 콜백 실행</text>
+
+    <line x1="655" y1="522" x2="673" y2="522" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+
+    <rect x="675" y="495" width="190" height="55" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="770" y="517" text-anchor="middle" font-size="12" font-weight="700" fill="#14532d">setUsers(data)</text>
+    <text x="770" y="534" text-anchor="middle" font-size="11" fill="#14532d">→ 재렌더 (새 데이터 반영)</text>
+
+    <text x="450" y="578" text-anchor="middle" font-size="12" fill="#334155">data라는 값은 서버가 실제로 응답을 줘야만 알 수 있다. effect 실행 시점엔 존재하지 않는다.</text>
+    <text x="450" y="598" text-anchor="middle" font-size="12" font-weight="700" fill="#15803d">→ 미리 계산해둘 수 없으므로, 응답이 온 시점에 반영하는 게 유일한 방법</text>
+  </g>
+
+  <line x1="60" y1="625" x2="840" y2="625" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- ============ SUMMARY ============ -->
+  <g>
+    <text x="450" y="660" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">판단 기준: 이 값, effect가 실행되는 시점에 이미 알 수 있었는가?</text>
+
+    <rect x="90" y="682" width="340" height="62" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="260" y="705" text-anchor="middle" font-size="12" font-weight="700" fill="#7f1d1d">예 → 이미 알고 있던 값</text>
+    <text x="260" y="723" text-anchor="middle" font-size="11" fill="#7f1d1d">초기값(useState)으로 대체 가능</text>
+    <text x="260" y="738" text-anchor="middle" font-size="11" fill="#7f1d1d">→ 동기 setState는 불필요한 렌더링, 경고 대상</text>
+
+    <rect x="470" y="682" width="340" height="62" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="640" y="705" text-anchor="middle" font-size="12" font-weight="700" fill="#14532d">아니오 → 외부 이벤트가 일어나야 앎</text>
+    <text x="640" y="723" text-anchor="middle" font-size="11" fill="#14532d">미리 계산 불가능한 값</text>
+    <text x="640" y="738" text-anchor="middle" font-size="11" fill="#14532d">→ 콜백에서 반영해야 하는 정당한 렌더링</text>
+  </g>
+
+  <text x="450" y="785" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">기준은 "동기냐 비동기냐"가 아니라, "그 값을 렌더링 시점에 미리 알 수 있었는가"다.</text>
+
+  <text x="450" y="820" text-anchor="middle" font-size="10" font-style="italic" fill="#94a3b8">* 에디터 경고 원문: "Calling setState synchronously within an effect can trigger cascading renders"</text>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#16a34a"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+</svg>
