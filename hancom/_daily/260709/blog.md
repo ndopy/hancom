@@ -12,7 +12,7 @@ React는 렌더링을 시작할 때 "지금 렌더링 중인 컴포넌트(fiber)
 
 이 원리를 알고 나니 "훅을 조건문이나 반복문 안에서 호출하면 안 된다"는 규칙(Rules of Hooks)이 왜 있는지도 같이 이해됐다. 렌더링마다 호출 순서가 달라지면 순서 기반으로 슬롯을 매칭하는 방식이 깨지기 때문에, 이전 렌더링의 state가 엉뚱한 훅에 배정돼버릴 수 있다.
 
-![UserProfile이 렌더링되며 useFetchUser 내부의 useState가 호출 순서에 따라 fiber의 훅 연결 리스트 슬롯에 배정된다](260709-hook-slot-diagram.svg)
+![UserProfile이 렌더링되며 useFetchUser 내부의 useState가 호출 순서에 따라 fiber의 훅 연결 리스트 슬롯에 배정된다](hook-slot-diagram.svg)
 
 ### 훅 연결 리스트는 "최초 렌더링" 때 딱 한 번 만들어진다
 
@@ -39,7 +39,7 @@ function Counter({ showExtra }) {
 
 `showExtra = true`로 mount됐다면 훅 연결 리스트는 `[count] → [extra] → [name]`으로 고정된다. 그런데 다음 렌더링에서 `showExtra = false`가 되면 `extra`의 `useState` 호출 자체가 건너뛰어지므로, 실제 호출 순서는 `count → name`이 된다. 커서는 몇 번째로 불렸는지만 보고 기계적으로 다음 노드를 넘겨주기 때문에, 두 번째 호출인 `name`이 mount 때 만들어진 리스트의 두 번째 노드, 즉 원래 `extra`를 위해 만들어졌던 노드를 그대로 받아버린다. `name`이 자기 상태가 아니라 `extra`의 값(과 `setExtra`)을 잘못 받는 사고가 나는 것이다.
 
-![mount에서 훅 연결 리스트가 한 번 만들어지고, update에서는 호출 순서가 같으면 정상 매칭되지만 조건문으로 순서가 밀리면 엉뚱한 노드와 연결된다](260709-hook-mount-update-diagram.svg)
+![mount에서 훅 연결 리스트가 한 번 만들어지고, update에서는 호출 순서가 같으면 정상 매칭되지만 조건문으로 순서가 밀리면 엉뚱한 노드와 연결된다](hook-mount-update-diagram.svg)
 
 ### 커스텀 훅은 state를 담는 그릇이 아니다
 
@@ -114,7 +114,7 @@ function B() {
 
 `useFetchUser`는 "state를 만들고 관리하는 로직이 적힌 설계도(템플릿)"이고, 실제 state라는 "실체"는 그 설계도를 호출한 컴포넌트의 fiber에 매번 새로 지어진다. 그래서 A가 `user`를 업데이트해도 B의 `user`에는 전혀 영향이 없다.
 
-![같은 useFetchUser 로직을 A, B 컴포넌트가 각각 호출해도 각자의 fiber에 독립된 user state가 생성된다](260709-hook-independence-diagram.svg)
+![같은 useFetchUser 로직을 A, B 컴포넌트가 각각 호출해도 각자의 fiber에 독립된 user state가 생성된다](hook-independence-diagram.svg)
 
 ### 정리
 
