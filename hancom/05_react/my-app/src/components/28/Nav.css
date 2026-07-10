@@ -1,0 +1,18 @@
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+ul li a {
+  color: #4e5968;
+  font-weight: 600;
+  text-decoration: none;
+}
