@@ -1,10 +1,18 @@
-function TripCourse({ destinations }) {
+function TripCourse({ destinations, onClear }) {
   return (
-    <div className="flex flex-col flex-1 overflow-hidden border-t-4 border-blue-500">
+    <div data-tutorial="trip-course" className="flex flex-col flex-1 overflow-hidden border-t-4 border-blue-500">
       <div className="px-5 py-4 border-b border-blue-100 bg-blue-50">
         <div className="flex items-center gap-2">
           <span className="text-blue-500 text-lg">🗺️</span>
           <h2 className="text-base font-bold text-blue-700">내 여행 코스</h2>
+          {destinations.length > 0 && (
+            <button
+              onClick={onClear}
+              className="ml-auto text-xs text-red-400 hover:text-red-600 border border-red-200 hover:border-red-400 rounded px-2 py-0.5"
+            >
+              초기화
+            </button>
+          )}
         </div>
         <p className="text-xs text-blue-400 mt-0.5">{destinations.length}개 장소</p>
       </div>

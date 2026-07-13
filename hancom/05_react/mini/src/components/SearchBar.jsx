@@ -8,7 +8,7 @@ function SearchBar({ onSearch }) {
   }
 
   return (
-    <div className="flex items-center gap-3 px-6 py-4 bg-white shadow-sm">
+    <div data-tutorial="search" className="flex items-center gap-3 px-6 py-4 bg-white shadow-sm">
       <h1 className="text-lg font-bold text-blue-600 whitespace-nowrap">여행 플래너</h1>
       <div className="flex flex-1 max-w-xl gap-2">
         <input

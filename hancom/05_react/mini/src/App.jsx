@@ -1,16 +1,27 @@
 import "./App.css";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import SearchBar from "./components/SearchBar";
 import KakaoMap from "./components/KakaoMap";
 import TripCourse from "./components/TripCourse";
 import SearchResult from "./components/SearchResult";
+import SpotlightTutorial from "./components/SpotlightTutorial";
+import Footer from "./components/Footer";
+
+const TUTORIAL_KEY = "trip_planner_tutorial_seen";
+const DESTINATIONS_KEY = "trip_planner_destinations";
 
 function App() {
   const [places, setPlaces] = useState([]);
-  const [destinations, setDestinations] = useState([]);
+  const [destinations, setDestinations] = useState(
+    () => JSON.parse(localStorage.getItem(DESTINATIONS_KEY) ?? "[]")
+  );
   const [isLoading, setIsLoading] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(
+    () => !localStorage.getItem(TUTORIAL_KEY)
+  );
   const [mapCenter, setMapCenter] = useState({
     mapx: 127.11942,
     mapy: 37.39473,
@@ -34,6 +45,7 @@ function App() {
       const result = data.response.body.items.item;
 
       setPlaces(result ?? []);
+      setHasSearched(true);
 
       if (!result || result.length === 0) {
         return;
@@ -63,12 +75,26 @@ function App() {
     });
   }
 
+  useEffect(() => {
+    localStorage.setItem(DESTINATIONS_KEY, JSON.stringify(destinations));
+  }, [destinations]);
+
+  function handleClearDestinations() {
+    setDestinations([]);
+  }
+
   function handlePlaceCardClick({ mapx, mapy }) {
     setMapCenter({ mapx, mapy });
   }
 
+  function handleTutorialClose() {
+    localStorage.setItem(TUTORIAL_KEY, "true");
+    setShowTutorial(false);
+  }
+
   return (
     <div className="flex flex-col h-screen bg-gray-100 relative">
+      {showTutorial && <SpotlightTutorial onClose={handleTutorialClose} />}
       {isLoading && (
         <div className="absolute inset-0 bg-black/40 z-50 flex items-center justify-center">
           <div className="bg-white rounded-xl px-8 py-6 flex flex-col items-center gap-3 shadow-lg">
@@ -87,10 +113,11 @@ function App() {
           onAdd={handleAddDestinationClick}
         />
         <div className="w-72 flex flex-col overflow-hidden bg-white rounded-xl shadow-lg">
-          <SearchResult places={places} onCardClick={handlePlaceCardClick} />
-          <TripCourse destinations={destinations} />
+          <SearchResult places={places} hasSearched={hasSearched} onCardClick={handlePlaceCardClick} />
+          <TripCourse destinations={destinations} onClear={handleClearDestinations} />
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

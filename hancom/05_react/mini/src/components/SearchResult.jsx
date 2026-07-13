@@ -1,6 +1,7 @@
-function SearchResult({ places, onCardClick }) {
+function SearchResult({ places, hasSearched, onCardClick }) {
   return (
     <div
+      data-tutorial="search-result"
       className="flex flex-col overflow-hidden bg-gray-50"
       style={{ maxHeight: "50%" }}
     >
@@ -13,8 +14,20 @@ function SearchResult({ places, onCardClick }) {
       </div>
       <ul className="overflow-y-auto p-3 flex flex-col gap-2">
         {places.length === 0 ? (
-          <li className="px-5 py-8 text-center text-sm text-gray-400">
-            장소를 검색해보세요
+          <li className="px-5 py-8 flex flex-col items-center gap-2">
+            {hasSearched ? (
+              <>
+                <span className="text-3xl">😔</span>
+                <p className="text-sm font-medium text-gray-500">검색 결과가 없습니다.</p>
+                <p className="text-xs text-gray-400">다른 검색어를 입력해보세요.</p>
+              </>
+            ) : (
+              <>
+                <span className="text-3xl">🔍</span>
+                <p className="text-sm font-medium text-gray-500">장소를 검색해보세요.</p>
+                <p className="text-xs text-gray-400">원하는 관광지, 음식점을 찾아보세요.</p>
+              </>
+            )}
           </li>
         ) : (
           places.map((place) => (

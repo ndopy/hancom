@@ -121,6 +121,7 @@ function KakaoMap({ places, mapCenter, onAdd }) {
   return (
     <div
       id="map"
+      data-tutorial="map"
       ref={containerRef}
       className="flex-1 h-full rounded-xl overflow-hidden"
     />
