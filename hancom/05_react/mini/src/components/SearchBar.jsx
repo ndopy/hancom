@@ -18,6 +18,7 @@ function SearchBar({ onSearch }) {
           placeholder="장소를 검색하세요"
           value={keyword}
           onChange={handleKeywordChange}
+          onKeyDown={(e) => e.key === "Enter" && onSearch(keyword)}
           className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-blue-400"
         />
         <button
