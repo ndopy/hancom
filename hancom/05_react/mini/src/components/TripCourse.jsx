@@ -23,11 +23,11 @@ function TripCourse({ destinations, onClear, onRemove }) {
           </li>
         ) : (
           destinations.map((destination, index) => (
-            <li key={destination} className="flex items-center gap-3 px-5 py-3 group">
+            <li key={destination.title} className="flex items-center gap-3 px-5 py-3 group">
               <span className="w-6 h-6 rounded-full bg-blue-500 text-white text-xs flex items-center justify-center font-medium shrink-0">
                 {index + 1}
               </span>
-              <span className="text-sm text-gray-700 flex-1">{destination}</span>
+              <span className="text-sm text-gray-700 flex-1">{destination.title}</span>
               <button
                 onClick={() => onRemove(index)}
                 className="text-gray-300 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity text-base leading-none"

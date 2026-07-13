@@ -64,14 +64,11 @@ function App() {
   }
 
   function handleAddDestinationClick(place) {
-    const newDestination = place.title;
-
     setDestinations((prev) => {
-      if (prev.includes(newDestination)) {
-        return [...prev];
+      if (prev.some((d) => d.title === place.title)) {
+        return prev;
       }
-
-      return [...prev, newDestination];
+      return [...prev, { title: place.title, mapx: place.mapx, mapy: place.mapy }];
     });
   }
 
@@ -114,6 +111,7 @@ function App() {
         <KakaoMap
           places={places}
           mapCenter={mapCenter}
+          destinations={destinations}
           onAdd={handleAddDestinationClick}
         />
         <div className="w-72 flex flex-col overflow-hidden bg-white rounded-xl shadow-lg">
