@@ -1,9 +1,29 @@
+import { Routes, Route, Link } from "react-router-dom";
+
 import "./App.css";
 
-import Weather from "./components/39/Weather";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 function App() {
-  return <Weather />;
+  return (
+    <>
+      <nav>
+        <Link to="/">HOME</Link>
+        {" | "}
+        <Link to="/about">ABOUT</Link>
+        {" | "}
+        <Link to="/contact">CONTACT</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </>
+  );
 }
 
 export default App;
