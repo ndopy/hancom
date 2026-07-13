@@ -26,6 +26,7 @@ function App() {
     mapx: 127.11942,
     mapy: 37.39473,
   });
+  const [toast, setToast] = useState(null);
 
   async function handleSearchClick(keyword) {
     setIsLoading(true);
@@ -66,11 +67,19 @@ function App() {
   function handleAddDestinationClick(place) {
     setDestinations((prev) => {
       if (prev.some((d) => d.title === place.title)) {
+        setToast(`이미 추가된 장소입니다.`);
         return prev;
       }
+      setToast(`'${place.title}'이(가) 코스에 추가됐습니다.`);
       return [...prev, { title: place.title, mapx: place.mapx, mapy: place.mapy }];
     });
   }
+
+  useEffect(() => {
+    if (!toast) return;
+    const timer = setTimeout(() => setToast(null), 2500);
+    return () => clearTimeout(timer);
+  }, [toast]);
 
   useEffect(() => {
     localStorage.setItem(DESTINATIONS_KEY, JSON.stringify(destinations));
@@ -88,6 +97,10 @@ function App() {
     setMapCenter({ mapx, mapy });
   }
 
+  function handleCourseItemClick({ mapx, mapy }) {
+    setMapCenter({ mapx, mapy });
+  }
+
   function handleTutorialClose() {
     localStorage.setItem(TUTORIAL_KEY, "true");
     setShowTutorial(false);
@@ -96,6 +109,11 @@ function App() {
   return (
     <div className="flex flex-col h-screen bg-gray-100 relative">
       {showTutorial && <SpotlightTutorial onClose={handleTutorialClose} />}
+      {toast && (
+        <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-50 bg-gray-800 text-white text-sm px-4 py-2.5 rounded-lg shadow-lg whitespace-nowrap">
+          {toast}
+        </div>
+      )}
       {isLoading && (
         <div className="absolute inset-0 bg-black/40 z-50 flex items-center justify-center">
           <div className="bg-white rounded-xl px-8 py-6 flex flex-col items-center gap-3 shadow-lg">
@@ -116,7 +134,7 @@ function App() {
         />
         <div className="w-72 flex flex-col overflow-hidden bg-white rounded-xl shadow-lg">
           <SearchResult places={places} hasSearched={hasSearched} onCardClick={handlePlaceCardClick} />
-          <TripCourse destinations={destinations} onClear={handleClearDestinations} onRemove={handleRemoveDestination} />
+          <TripCourse destinations={destinations} onClear={handleClearDestinations} onRemove={handleRemoveDestination} onSelect={handleCourseItemClick} />
         </div>
       </div>
       <Footer />

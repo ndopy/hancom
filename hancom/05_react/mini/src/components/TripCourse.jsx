@@ -1,4 +1,4 @@
-function TripCourse({ destinations, onClear, onRemove }) {
+function TripCourse({ destinations, onClear, onRemove, onSelect }) {
   return (
     <div data-tutorial="trip-course" className="flex flex-col flex-1 overflow-hidden border-t-4 border-blue-500">
       <div className="px-5 py-4 border-b border-blue-100 bg-blue-50">
@@ -23,7 +23,7 @@ function TripCourse({ destinations, onClear, onRemove }) {
           </li>
         ) : (
           destinations.map((destination, index) => (
-            <li key={destination.title} className="flex items-center gap-3 px-5 py-3 group">
+            <li key={destination.title} className="flex items-center gap-3 px-5 py-3 group cursor-pointer hover:bg-blue-50" onClick={() => onSelect(destination)}>
               <span className="w-6 h-6 rounded-full bg-blue-500 text-white text-xs flex items-center justify-center font-medium shrink-0">
                 {index + 1}
               </span>
