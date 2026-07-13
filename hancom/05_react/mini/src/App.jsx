@@ -83,6 +83,10 @@ function App() {
     setDestinations([]);
   }
 
+  function handleRemoveDestination(index) {
+    setDestinations((prev) => prev.filter((_, i) => i !== index));
+  }
+
   function handlePlaceCardClick({ mapx, mapy }) {
     setMapCenter({ mapx, mapy });
   }
@@ -105,7 +109,7 @@ function App() {
           </div>
         </div>
       )}
-      <SearchBar onSearch={handleSearchClick} />
+      <SearchBar onSearch={handleSearchClick} isLoading={isLoading} />
       <div className="flex flex-1 overflow-hidden gap-2 p-2">
         <KakaoMap
           places={places}
@@ -114,7 +118,7 @@ function App() {
         />
         <div className="w-72 flex flex-col overflow-hidden bg-white rounded-xl shadow-lg">
           <SearchResult places={places} hasSearched={hasSearched} onCardClick={handlePlaceCardClick} />
-          <TripCourse destinations={destinations} onClear={handleClearDestinations} />
+          <TripCourse destinations={destinations} onClear={handleClearDestinations} onRemove={handleRemoveDestination} />
         </div>
       </div>
       <Footer />
