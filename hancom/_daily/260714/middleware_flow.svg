@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="360" viewBox="0 0 520 360">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="520" height="360" fill="#f8fafc" rx="10"/>
+
+  <!-- 1. 클라이언트 요청 -->
+  <rect x="135" y="24" width="250" height="48" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="260" y="53" text-anchor="middle" font-size="14" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" fill="#1d4ed8">클라이언트 요청 도착</text>
+
+  <!-- arrow down -->
+  <line x1="260" y1="72" x2="260" y2="104" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- 2. 미들웨어 -->
+  <rect x="60" y="108" width="400" height="84" rx="8" fill="#fff7ed" stroke="#f97316" stroke-width="1.5"/>
+  <text x="260" y="134" text-anchor="middle" font-size="14" font-weight="bold" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" fill="#c2410c">express.json() 미들웨어</text>
+  <text x="260" y="156" text-anchor="middle" font-size="12" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" fill="#9a3412">body 문자열 → JSON.parse() → JS 객체</text>
+  <text x="260" y="176" text-anchor="middle" font-size="12" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" fill="#9a3412">→ req.body 에 저장</text>
+
+  <!-- arrow down -->
+  <line x1="260" y1="192" x2="260" y2="224" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- 3. 라우트 핸들러 -->
+  <rect x="60" y="228" width="400" height="84" rx="8" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="260" y="254" text-anchor="middle" font-size="14" font-weight="bold" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" fill="#15803d">라우트 핸들러</text>
+  <text x="260" y="274" text-anchor="middle" font-size="12" font-family="'Courier New', monospace" fill="#166534">app.post("/api/chat", (req, res) =&gt; { ... })</text>
+  <text x="260" y="295" text-anchor="middle" font-size="12" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" fill="#166534">req.body.message → 바로 사용 가능</text>
+
+  <!-- arrow down -->
+  <line x1="260" y1="312" x2="260" y2="336" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <text x="260" y="354" text-anchor="middle" font-size="13" font-family="'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" fill="#64748b">클라이언트에 응답 전송</text>
+</svg>
