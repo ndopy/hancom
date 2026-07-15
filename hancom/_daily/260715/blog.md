@@ -326,11 +326,32 @@ export default async function handler(req, res) {
 
 ### 핵심 교훈
 
-1. **로컬과 배포 환경은 다르다** — `localhost` 하드코딩, `express.static`의 파일 접근 방식이 달라진다.
-2. **`express.static`은 Vercel serverless에서 동작하지 않는다** — serverless function 번들에 정적 파일이 포함되지 않기 때문이다.
-3. **`builds`에 명시된 파일만 배포된다** — 정적 파일도 빠짐없이 포함해야 한다.
-4. **오류 메시지 출처를 구분하면 범위가 좁혀진다** — "Cannot GET /"는 Express, "404: NOT_FOUND"는 Vercel.
-5. **Express를 Vercel serverless로 쓰려면 `export default app`이 필요하다** — `app.listen()`은 로컬 전용이다.
-6. **`server.js`(Express) 방식은 zero-config가 반쪽짜리다** — `server.js`는 자동 감지되지만 `public/` CDN 서빙은 안 된다. `server.js`를 `api/chat.js`로 교체하자 `vercel.json` 없이도 `public/`이 자동 서빙됐다. Vercel은 `api/` 디렉토리가 있어야 프로젝트를 완전히 인식하는 것으로 보인다.
-7. **AI가 제안한 방식도 직접 테스트하기 전까지는 신뢰할 수 없다** — Claude Web, Gemini가 `functions`/`rewrites` 방식을 권장했지만 실제로는 동작하지 않았다. 직접 삽질해서 확인한 `builds` + `routes`가 유일하게 동작한 방식이었다.
-8. **`public/` zero-config 자동 서빙은 `api/` 디렉토리가 있어야 동작한다** — `server.js`만 있는 구조에서는 `public/`이 자동 서빙되지 않았다. `server.js`를 제거하고 `api/chat.js`(Vercel zero-config 서버리스 함수 컨벤션)로 교체하자 `vercel.json` 없이도 `public/`이 자동 서빙됐다. Vercel이 `api/` 디렉토리를 감지해야 프로젝트 구조를 제대로 인식하는 것으로 보인다.
+1. **로컬과 배포 환경은 다르다**  
+   `localhost` 하드코딩, `express.static`의 파일 접근 방식이 달라진다.
+
+2. **`express.static`은 Vercel serverless에서 동작하지 않는다**  
+   serverless function 번들에 정적 파일이 포함되지 않기 때문이다.
+
+3. **`builds`에 명시된 파일만 배포된다**  
+   정적 파일도 빠짐없이 포함해야 한다.
+
+4. **오류 메시지 출처를 구분하면 범위가 좁혀진다**  
+   `"Cannot GET /"` → Express 오류.  
+   `"404: NOT_FOUND"` → Vercel 오류.
+
+5. **Express를 Vercel serverless로 쓰려면 `export default app`이 필요하다**  
+   `app.listen()`은 로컬 전용이다.
+
+6. **`server.js`(Express) 방식은 zero-config가 반쪽짜리다**  
+   `server.js`는 자동 감지되지만 `public/` CDN 서빙은 안 된다.  
+   `server.js`를 `api/chat.js`로 교체하자 `vercel.json` 없이도 `public/`이 자동 서빙됐다.  
+   Vercel은 `api/` 디렉토리가 있어야 프로젝트를 완전히 인식하는 것으로 보인다.
+
+7. **AI가 제안한 방식도 직접 테스트하기 전까지는 신뢰할 수 없다**  
+   Claude Web, Gemini가 `functions`/`rewrites` 방식을 권장했지만 실제로는 동작하지 않았다.  
+   직접 확인한 `builds` + `routes`가 유일하게 동작한 방식이었다.
+
+8. **`public/` zero-config 자동 서빙은 `api/` 디렉토리가 있어야 동작한다**  
+   `server.js`만 있는 구조에서는 `public/`이 자동 서빙되지 않았다.  
+   `api/chat.js`로 교체하자 `vercel.json` 없이도 `public/`이 자동 서빙됐다.  
+   Vercel이 `api/` 디렉토리를 감지해야 프로젝트 구조를 제대로 인식하는 것으로 보인다.
