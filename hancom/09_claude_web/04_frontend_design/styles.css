@@ -1,0 +1,327 @@
+/* ============================================================
+   ADDO-X 200 — 프린팅 가산기
+   책상(어두움) 위에 밝은 기계가 놓이고, 오른쪽으로 종이 테이프가 흘러나온다.
+   ============================================================ */
+
+:root {
+  /* Color */
+  --desk: #33302b;       /* 책상/배경 */
+  --desk-edge: #2a2822;  /* 책상 음영 */
+  --body: #c9c2b0;       /* 기계 바디 */
+  --body-hi: #d8d2c3;    /* 바디 하이라이트 */
+  --body-lo: #b3ac9a;    /* 바디 음영 */
+  --key: #3a3733;        /* 키캡 */
+  --key-hi: #4a4741;
+  --key-lo: #2c2926;
+  --key-face: #ede6d6;   /* 키 각인 */
+  --paper: #f3ecdb;      /* 테이프 종이 */
+  --ink: #211e1a;        /* 인쇄 검정 */
+  --red: #b23a2e;        /* 인쇄 빨강 — 시그니처 */
+  --red-key: #a8402f;    /* 연산 키 강조 */
+
+  --focus: #f0b429;      /* 포커스 링 */
+
+  /* Type */
+  --mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --plate: "Anton", Impact, sans-serif;
+  --ui: "Inter", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--ui);
+  color: var(--ink);
+  background:
+    radial-gradient(120% 90% at 30% 0%, #3b3830 0%, var(--desk) 55%, var(--desk-edge) 100%);
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vw, 3rem);
+}
+
+/* ---- 전체 레이아웃 ---- */
+.desk {
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) minmax(220px, 280px);
+  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+/* ============================================================
+   기계 본체
+   ============================================================ */
+.machine {
+  min-width: 0; /* 그리드 트랙이 콘텐츠보다 작아질 수 있도록 */
+  background: linear-gradient(160deg, var(--body-hi), var(--body) 40%, var(--body-lo));
+  border-radius: 18px 18px 22px 22px;
+  padding: clamp(1rem, 2.5vw, 1.4rem);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.5) inset,
+    0 -6px 14px rgba(0, 0, 0, 0.12) inset,
+    0 22px 40px rgba(0, 0, 0, 0.45),
+    0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ---- 네임플레이트 ---- */
+.nameplate {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5ch;
+  padding: 0.1rem 0.2rem 0.7rem;
+  border-bottom: 2px solid var(--body-lo);
+  margin-bottom: 0.9rem;
+}
+.nameplate__brand {
+  font-family: var(--plate);
+  font-size: 1.6rem;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  line-height: 1;
+}
+.nameplate__model {
+  font-family: var(--plate);
+  font-size: 1.6rem;
+  color: var(--red);
+  line-height: 1;
+}
+.nameplate__tag {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 55%, var(--body));
+  align-self: center;
+}
+
+/* ---- 현재 입력 창 ---- */
+.readout {
+  background: #24221d;
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5ch;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.4) inset,
+    0 1px 0 rgba(255, 255, 255, 0.35);
+  overflow: hidden;
+}
+.readout__op {
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  color: var(--red);
+  min-width: 1ch;
+}
+.readout__value {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: clamp(1.7rem, 6vw, 2.3rem);
+  color: #f3ecdb;
+  margin-left: auto;
+  letter-spacing: 0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+  /* 살짝 형광 표시창 느낌 */
+  text-shadow: 0 0 6px rgba(243, 236, 219, 0.25);
+}
+
+/* ---- 키패드 ---- */
+.keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.55rem;
+}
+.key {
+  font-family: var(--mono);
+  font-size: 1.15rem;
+  color: var(--key-face);
+  background: linear-gradient(180deg, var(--key-hi), var(--key) 55%, var(--key-lo));
+  border: none;
+  border-radius: 9px;
+  padding: 0.8rem 0;
+  cursor: pointer;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.12) inset,
+    0 3px 0 var(--key-lo),
+    0 5px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.05s ease, box-shadow 0.05s ease, background 0.1s ease;
+  user-select: none;
+}
+.key:hover { background: linear-gradient(180deg, var(--key-hi), var(--key-hi) 55%, var(--key)); }
+
+.key:active,
+.key.is-press {
+  transform: translateY(3px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.1) inset,
+    0 0 0 var(--key-lo),
+    0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.key:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* 연산 키만 붉은 각인으로 강조 */
+.key--op { color: #f0c9c1; }
+.key--op:hover { color: #ffd9d0; }
+
+.key--eq {
+  background: linear-gradient(180deg, #c34a38, var(--red-key) 55%, #8f3325);
+  color: #fbeee9;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.2) inset,
+    0 3px 0 #7c2c20,
+    0 5px 8px rgba(0, 0, 0, 0.35);
+}
+.key--eq:hover { background: linear-gradient(180deg, #d1543f, #b2422f 55%, #8f3325); }
+.key--eq:active,
+.key--eq.is-press {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.15) inset,
+    0 0 0 #7c2c20,
+    0 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+.key--fn { font-size: 1rem; color: color-mix(in srgb, var(--key-face) 80%, #c9b8a0); }
+
+/* ============================================================
+   인쇄 테이프
+   ============================================================ */
+.tape {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* 그리드 트랙이 nowrap 라인 때문에 넘치지 않도록 */
+  min-height: 320px;
+}
+
+/* 기계에서 테이프가 빠져나오는 슬롯 */
+.tape__slot {
+  height: 12px;
+  background: #24221d;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5) inset;
+  margin: 0 6px;
+  position: relative;
+  z-index: 2;
+}
+
+.tape__roll {
+  flex: 1;
+  min-width: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background:
+    repeating-linear-gradient(
+      var(--paper),
+      var(--paper) 27px,
+      color-mix(in srgb, var(--paper) 92%, #cbbf9f) 27px,
+      color-mix(in srgb, var(--paper) 92%, #cbbf9f) 28px
+    );
+  color: var(--ink);
+  padding: 0.6rem 0.9rem 1.2rem;
+  border-radius: 0 0 3px 3px;
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.4),
+    0 1px 0 rgba(255, 255, 255, 0.4) inset;
+  /* 종이 좌우 톱니 가장자리 느낌 */
+  -webkit-mask-image: none;
+}
+
+.tape__line {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  line-height: 28px;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 1ch;
+  white-space: nowrap;
+}
+.tape__line--muted {
+  color: color-mix(in srgb, var(--ink) 40%, var(--paper));
+  justify-content: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+.tape__line--red { color: var(--red); }
+.tape__line--total {
+  color: var(--red);
+  font-weight: 500;
+  border-top: 2px solid color-mix(in srgb, var(--ink) 35%, var(--paper));
+  margin-top: 2px;
+}
+/* 긴 숫자는 말줄임 처리하고 연산 기호는 항상 보이게 */
+.tape__num {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tape__op {
+  flex: 0 0 auto;
+  color: color-mix(in srgb, var(--ink) 60%, var(--paper));
+}
+
+/* 인쇄 애니메이션: 새 줄이 위로 밀려 나오며 나타남 */
+.tape__line--print {
+  animation: linefeed 0.18s ease-out;
+}
+@keyframes linefeed {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.tape__tear {
+  margin-top: 0.7rem;
+  align-self: center;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper) 70%, #a89b7c);
+  background: transparent;
+  border: 1px dashed color-mix(in srgb, var(--paper) 45%, transparent);
+  border-radius: 6px;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+  transition: color 0.12s ease, border-color 0.12s ease;
+}
+.tape__tear:hover {
+  color: var(--paper);
+  border-color: color-mix(in srgb, var(--paper) 70%, transparent);
+}
+.tape__tear:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   반응형: 모바일에서 기계 위 / 테이프 아래로 스택
+   ============================================================ */
+@media (max-width: 640px) {
+  .desk {
+    grid-template-columns: min(360px, 100%);
+    justify-content: center;
+  }
+  .tape { min-height: 220px; max-height: 40vh; }
+}
+
+/* ============================================================
+   모션 최소화 존중
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .key,
+  .key--eq { transition: none; }
+  .tape__line--print { animation: none; }
+}

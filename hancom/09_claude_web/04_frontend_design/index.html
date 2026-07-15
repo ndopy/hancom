@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADDO-X 200 · 프린팅 가산기</title>
+  <meta name="description" content="옛날 영수증 테이프 가산기를 재해석한 계산기. 계산할 때마다 테이프에 이력이 인쇄됩니다." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Mono:wght@400;500&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="desk">
+    <!-- 좌측: 기계 본체 -->
+    <section class="machine" aria-label="계산기">
+      <header class="nameplate">
+        <span class="nameplate__brand">ADDO&#8209;X</span>
+        <span class="nameplate__model">200</span>
+        <span class="nameplate__tag">Printing&nbsp;Calculator</span>
+      </header>
+
+      <!-- 현재 입력 readout -->
+      <div class="readout">
+        <span class="readout__op" id="readoutOp" aria-hidden="true"></span>
+        <output class="readout__value" id="display" aria-live="polite">0</output>
+      </div>
+
+      <!-- 키패드 -->
+      <div class="keys" role="group" aria-label="숫자 및 연산 키">
+        <button class="key key--fn" data-action="all-clear" aria-label="전체 지우기">AC</button>
+        <button class="key key--fn" data-action="clear" aria-label="현재 입력 지우기">C</button>
+        <button class="key key--fn" data-action="sign" aria-label="부호 전환">±</button>
+        <button class="key key--op" data-op="/" aria-label="나누기">÷</button>
+
+        <button class="key key--num" data-digit="7">7</button>
+        <button class="key key--num" data-digit="8">8</button>
+        <button class="key key--num" data-digit="9">9</button>
+        <button class="key key--op" data-op="*" aria-label="곱하기">×</button>
+
+        <button class="key key--num" data-digit="4">4</button>
+        <button class="key key--num" data-digit="5">5</button>
+        <button class="key key--num" data-digit="6">6</button>
+        <button class="key key--op" data-op="-" aria-label="빼기">−</button>
+
+        <button class="key key--num" data-digit="1">1</button>
+        <button class="key key--num" data-digit="2">2</button>
+        <button class="key key--num" data-digit="3">3</button>
+        <button class="key key--op" data-op="+" aria-label="더하기">+</button>
+
+        <button class="key key--fn" data-action="percent" aria-label="퍼센트">%</button>
+        <button class="key key--num" data-digit="0">0</button>
+        <button class="key key--num" data-action="decimal" aria-label="소수점">.</button>
+        <button class="key key--eq" data-action="equals" aria-label="계산">=</button>
+      </div>
+    </section>
+
+    <!-- 우측: 인쇄 테이프 -->
+    <section class="tape" aria-label="계산 이력 테이프">
+      <div class="tape__slot" aria-hidden="true"></div>
+      <div class="tape__roll" id="tape" role="log" aria-live="polite" aria-label="인쇄된 계산 이력">
+        <p class="tape__line tape__line--muted">— 테이프 시작 —</p>
+      </div>
+      <button class="tape__tear" id="tearTape" type="button">테이프 뜯기</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
