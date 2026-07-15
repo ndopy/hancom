@@ -1,0 +1,196 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-variable.css');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* KRDS Color tokens */
+  --primary-10:     oklch(0.955 0.018 254);  /* #ECF2FE */
+  --primary-50:     oklch(0.575 0.205 257);  /* #256EF4 */
+  --primary-60:     oklch(0.475 0.21 261);   /* #0B50D0 */
+  --gray-10:        oklch(0.965 0.002 247);  /* #F4F5F6 */
+  --gray-20:        oklch(0.92 0.003 247);   /* #E6E8EA */
+  --gray-30:        oklch(0.84 0.005 247);   /* #CDD1D5 */
+  --gray-50:        oklch(0.625 0.013 246);  /* #8A949E */
+  --gray-60:        oklch(0.525 0.014 246);  /* #6D7882 */
+  --gray-80:        oklch(0.37 0.011 250);   /* #464C53 */
+  --gray-100:       oklch(0.16 0.003 264);   /* #131416 */
+
+  /* Semantic aliases */
+  --fg-1:           var(--gray-100);
+  --fg-3:           var(--gray-60);
+  --border-default: var(--gray-30);
+
+  /* Shadow */
+  --shadow-2: 0 2px 6px oklch(0.16 0.003 264 / 0.08),
+              0 1px 2px oklch(0.16 0.003 264 / 0.04);
+
+  /* Radius */
+  --radius-xlarge: 12px;
+  --radius-small:  6px;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--gray-10);
+  font-family: 'Pretendard Variable', 'Pretendard', -apple-system,
+    'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--fg-1);
+}
+
+.calculator {
+  width: 320px;
+  background-color: #fff;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xlarge);
+  box-shadow: var(--shadow-2);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Display Section */
+.display {
+  background-color: var(--gray-10);
+  border-radius: var(--radius-small);
+  padding: 12px 16px;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: right;
+}
+
+.expression {
+  font-size: 13px;
+  color: var(--fg-3);
+  min-height: 20px;
+}
+
+.result {
+  font-size: 36px;
+  font-weight: bold;
+  color: var(--fg-1);
+  line-height: 1.2;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+/* Button Grid */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+button {
+  height: 56px;
+  border-radius: var(--radius-small);
+  font-size: 17px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 150ms ease-out, border-color 150ms ease-out;
+  border: none;
+  font-weight: 400;
+}
+
+/* Digit buttons (0-9, .) */
+button[data-type='digit'],
+button[data-type='clear'],
+button[data-type='backspace'] {
+  background-color: #fff;
+  color: var(--fg-1);
+  border: 1px solid var(--border-default);
+}
+
+button[data-type='digit']:hover,
+button[data-type='clear']:hover,
+button[data-type='backspace']:hover {
+  background-color: var(--gray-10);
+}
+
+button[data-type='digit']:active,
+button[data-type='clear']:active,
+button[data-type='backspace']:active {
+  background-color: var(--gray-20);
+}
+
+button[data-type='backspace'] {
+  color: var(--gray-80);
+}
+
+/* Operator buttons (+, -, *, /) */
+button[data-type='operator'] {
+  background-color: var(--primary-10);
+  color: var(--primary-60);
+  font-weight: bold;
+  border: none;
+}
+
+button[data-type='operator']:hover {
+  background-color: oklch(0.91 0.035 252); /* primary-20 */
+}
+
+button[data-type='operator']:active {
+  background-color: oklch(0.79 0.085 251); /* primary-30 */
+}
+
+/* Equals button */
+button[data-type='equals'] {
+  background-color: var(--primary-50);
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  grid-row: span 2;
+}
+
+button[data-type='equals']:hover {
+  background-color: var(--primary-60);
+}
+
+button[data-type='equals']:active {
+  background-color: oklch(0.345 0.115 257); /* primary-70 */
+}
+
+/* Focus state (KRDS required) */
+button:focus {
+  outline: 2px solid var(--primary-50);
+  outline-offset: 2px;
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--primary-50);
+  outline-offset: 2px;
+}
+
+/* Zero button (colspan 2) */
+button[data-value='0'] {
+  grid-column: span 2;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  body {
+    padding: 16px;
+  }
+
+  .calculator {
+    width: 100%;
+    max-width: 320px;
+  }
+}
