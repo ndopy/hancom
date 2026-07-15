@@ -207,4 +207,4 @@ Vercel 공식 문서가 "public/ 폴더를 자동으로 CDN 서빙한다"고 명
 5. **Express를 Vercel serverless로 쓰려면 `export default app`이 필요하다** — `app.listen()`은 로컬 전용이다.
 6. **Vercel zero-config는 진입점 감지까지만 한다** — `server.js`는 자동 감지되지만, `public/` CDN 서빙은 자동으로 이뤄지지 않는다. 새 프로젝트로 재테스트해서 직접 확인했다. (2026-07 기준. zero-config Express는 비교적 최근 기능이라 이후 동작이 바뀔 수 있다.)
 7. **AI가 제안한 방식도 직접 테스트하기 전까지는 신뢰할 수 없다** — Claude Web, Gemini가 `functions`/`rewrites` 방식을 권장했지만 실제로는 동작하지 않았다. 직접 삽질해서 확인한 `builds` + `routes`가 유일하게 동작한 방식이었다.
-8. **공식 문서와 실제 동작 사이의 gap이 있다** — Vercel 공식 문서는 `public/`에 파일을 두면 `vercel.json` 없이 자동으로 CDN 서빙된다고 명시한다. 그러나 실제 테스트(새 프로젝트로 통제된 재검증 포함)에서는 동작하지 않았다. 원인은 아직 불명확하며, 이 트러블슈팅에서 확인된 유일하게 동작하는 방식은 `vercel.json`에 `builds`/`routes`를 명시하는 것이다. (2026-07 기준)
+8. **`public/` zero-config 자동 서빙은 `api/` 디렉토리가 있어야 동작한다** — `server.js`만 있는 구조에서는 `public/`이 자동 서빙되지 않았다. `server.js`를 제거하고 `api/chat.js`(Vercel zero-config 서버리스 함수 컨벤션)로 교체하자 `vercel.json` 없이도 `public/`이 자동 서빙됐다. Vercel이 `api/` 디렉토리를 감지해야 프로젝트 구조를 제대로 인식하는 것으로 보인다.
