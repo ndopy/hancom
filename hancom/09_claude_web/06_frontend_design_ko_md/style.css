@@ -1,0 +1,212 @@
+/* ============================================================
+   SEED Design Token — CSS 변수
+   출처: SEED_DESIGN.md (당근마켓 디자인 시스템)
+   ============================================================ */
+:root {
+  /* Color: role tokens */
+  --color-bg-default:       oklch(1.000 0.000 0);
+  --color-bg-layer:         oklch(0.979 0.002 248);
+  --color-bg-brand-solid:   oklch(0.696 0.204 43);
+  --color-bg-brand-pressed: oklch(0.618 0.195 40);
+  --color-bg-brand-weak:    oklch(0.970 0.016 47);
+  --color-fg-neutral:       oklch(0.226 0.008 264);
+  --color-fg-muted:         oklch(0.636 0.015 262);
+  --color-fg-brand:         oklch(0.618 0.195 40);
+  --color-stroke-muted:     oklch(0.901 0.007 269);
+
+  /* Spacing */
+  --space-x2:  8px;
+  --space-x3:  12px;
+  --space-x4:  16px;
+  --space-x6:  24px;
+  --space-x8:  32px;
+  --space-screen-bottom: 56px;
+
+  /* Radius */
+  --radius-r6:   24px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-family-ui: "Pretendard Variable", -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Noto Sans", sans-serif;
+  --t5-size:  1rem;
+  --t6-size:  1.125rem;
+  --t10-size: 1.625rem;
+  --t10-line: 2.1875rem;
+  --weight-medium: 500;
+  --weight-bold:   700;
+}
+
+/* ============================================================
+   Reset & Base
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-ui);
+  background: var(--color-bg-layer);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   Global Nav  (bg-brand-solid — carrot-600)
+   ============================================================ */
+.global-nav {
+  background: var(--color-bg-brand-solid);
+  height: var(--space-screen-bottom);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-x4);
+  flex-shrink: 0;
+}
+
+.global-nav__inner {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.global-nav__logo {
+  color: var(--color-bg-default);
+  font-size: var(--t6-size);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.01em;
+}
+
+/* ============================================================
+   Page Canvas
+   ============================================================ */
+.page-canvas {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-x8) var(--space-x4);
+}
+
+/* ============================================================
+   Calculator Card  (bg-default — 흰 카드)
+   ============================================================ */
+.calculator {
+  background: var(--color-bg-default);
+  border: 1px solid var(--color-stroke-muted);
+  border-radius: var(--radius-r6);
+  padding: var(--space-x6);
+  width: 100%;
+  max-width: 320px;
+}
+
+/* ============================================================
+   Display
+   ============================================================ */
+.calc-display {
+  padding-bottom: var(--space-x4);
+  border-bottom: 1px solid var(--color-stroke-muted);
+  margin-bottom: var(--space-x4);
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.calc-expression {
+  color: var(--color-fg-muted);
+  font-size: var(--t5-size);
+  min-height: 1.375rem;
+  word-break: break-all;
+}
+
+.calc-result {
+  color: var(--color-fg-neutral);
+  font-size: var(--t10-size);
+  line-height: var(--t10-line);
+  font-weight: var(--weight-bold);
+  word-break: break-all;
+  transition: font-size 0.1s;
+}
+
+/* ============================================================
+   Button Grid
+   ============================================================ */
+.calc-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-x3);
+}
+
+/* ============================================================
+   Button — 공통
+   ============================================================ */
+.btn {
+  height: 64px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-family-ui);
+  font-size: var(--t6-size);
+  font-weight: var(--weight-medium);
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn:active {
+  opacity: 0.7;
+}
+
+/* ============================================================
+   Button — 4 variants
+   ============================================================ */
+
+/* 유틸리티: AC / +−  / % */
+.btn--utility {
+  background: var(--color-bg-layer);
+  color: var(--color-fg-neutral);
+}
+
+/* 숫자: 0–9 / . */
+.btn--number {
+  background: var(--color-bg-default);
+  color: var(--color-fg-neutral);
+  border: 1px solid var(--color-stroke-muted);
+}
+
+/* 연산자: ÷ × − + */
+.btn--operator {
+  background: var(--color-bg-brand-weak);
+  color: var(--color-fg-brand);
+}
+
+/* 연산자 선택 상태 (클릭 후 대기 중) */
+.btn--operator.is-selected {
+  background: var(--color-bg-brand-solid);
+  color: var(--color-bg-default);
+}
+
+/* CTA: = */
+.btn--cta {
+  background: var(--color-bg-brand-solid);
+  color: var(--color-bg-default);
+  font-weight: var(--weight-bold);
+}
+
+.btn--cta:active {
+  background: var(--color-bg-brand-pressed);
+  opacity: 1;
+}
+
+/* 0 버튼 — 2칸 너비 */
+.btn--wide {
+  grid-column: span 2;
+  justify-content: flex-start;
+  padding-left: var(--space-x6);
+}
