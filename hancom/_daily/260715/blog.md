@@ -186,6 +186,68 @@ Vercel 공식 문서가 "public/ 폴더를 자동으로 CDN 서빙한다"고 명
 
 ---
 
+---
+
+### 추가 리팩토링 — `api/` 컨벤션으로 전환
+
+#### 배경
+
+`vercel.json` + Express 방식이 동작하긴 했지만, 이는 Vercel의 레거시 `builds`/`routes` 방식이다. Vercel의 공식 권장 방식은 `api/` 디렉토리를 사용하는 zero-config 서버리스 함수 컨벤션이다. 오늘 zero-config 테스트가 실패한 원인이 `server.js` 구조 때문인지 확인하기 위해 전환을 시도했다.
+
+#### 구조 변경
+
+`server.js`(Express)를 `api/chat.js`(순수 서버리스 함수)로 교체하고, `vercel.json`을 완전히 삭제했다.
+
+```
+groq-chatbot/
+├── api/
+│   └── chat.js       ← Express 없음, 함수 하나
+├── public/
+│   ├── index.html
+│   ├── style.css
+│   └── app.js
+├── package.json       ← 의존성 없음
+└── .gitignore
+```
+
+`api/chat.js`는 Express 없이 Vercel이 주입하는 `req`/`res`를 직접 받는다.
+
+```js
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'POST만 허용됩니다' });
+  }
+  const key = process.env.GROQ_API_KEY;
+  if (!key) return res.json({ reply: `(mock) ${req.body.prompt}` });
+
+  const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}` },
+    body: JSON.stringify({
+      model: 'llama-3.1-8b-instant',
+      messages: [{ role: 'user', content: req.body.prompt }],
+    }),
+  });
+  const data = await groqRes.json();
+  res.json({ reply: data.choices?.[0]?.message?.content || '(응답 없음)' });
+}
+```
+
+#### 결과
+
+`vercel.json` 없이 배포했더니 `public/`이 자동으로 서빙됐고, `/api/chat`도 정상 동작했다. 오전의 zero-config 실패 원인은 `server.js`(Express) 구조 자체에 있었다. Vercel은 `api/` 디렉토리를 감지해야 프로젝트를 올바르게 인식하고 `public/`을 함께 서빙한다.
+
+#### `server.js` vs `api/chat.js` 비교
+
+| | `server.js` (Express) | `api/chat.js` (서버리스) |
+|---|---|---|
+| 실행 방식 | 항상 켜진 서버 | 요청이 올 때만 실행 |
+| Vercel 인식 | `vercel.json` 필수 | `api/` 폴더만 있으면 자동 감지 |
+| 의존성 | express, cors, dotenv | 없음 (Node 내장 fetch) |
+| `public/` 자동 서빙 | 안 됨 | 됨 |
+
+---
+
 ### `vercel.json` 구조 정리
 
 | 프로퍼티 | 역할 |
