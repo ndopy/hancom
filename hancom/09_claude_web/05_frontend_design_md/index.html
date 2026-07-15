@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="global-nav" role="navigation" aria-label="Global">
+    <div class="global-nav__inner">
+      <span class="global-nav__logo">&#63743; Calculator</span>
+    </div>
+  </nav>
+
+  <main class="page-canvas">
+    <section class="calc-tile">
+      <h1 class="calc-headline">Calculator</h1>
+
+      <div class="calculator" role="application" aria-label="계산기">
+        <div class="calc-display" aria-live="polite">
+          <div class="calc-expression" aria-label="수식"></div>
+          <div class="calc-result" aria-label="결과">0</div>
+        </div>
+
+        <div class="calc-buttons">
+          <!-- Row 1: 유틸리티 + 첫 연산자 -->
+          <button class="btn btn-utility" data-action="clear">AC</button>
+          <button class="btn btn-utility" data-action="toggle-sign">+/−</button>
+          <button class="btn btn-utility" data-action="percent">%</button>
+          <button class="btn btn-operator" data-op="/">÷</button>
+
+          <!-- Row 2 -->
+          <button class="btn btn-number" data-digit="7">7</button>
+          <button class="btn btn-number" data-digit="8">8</button>
+          <button class="btn btn-number" data-digit="9">9</button>
+          <button class="btn btn-operator" data-op="*">×</button>
+
+          <!-- Row 3 -->
+          <button class="btn btn-number" data-digit="4">4</button>
+          <button class="btn btn-number" data-digit="5">5</button>
+          <button class="btn btn-number" data-digit="6">6</button>
+          <button class="btn btn-operator" data-op="-">−</button>
+
+          <!-- Row 4 -->
+          <button class="btn btn-number" data-digit="1">1</button>
+          <button class="btn btn-number" data-digit="2">2</button>
+          <button class="btn btn-number" data-digit="3">3</button>
+          <button class="btn btn-operator" data-op="+">+</button>
+
+          <!-- Row 5 -->
+          <button class="btn btn-number btn-zero" data-digit="0">0</button>
+          <button class="btn btn-number" data-digit=".">.</button>
+          <button class="btn btn-equals" data-action="equals">=</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

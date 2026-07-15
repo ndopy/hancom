@@ -1,0 +1,306 @@
+/* ============================================================
+   Apple 디자인 토큰 — CSS Custom Properties
+   출처: APPLE_DESIGN.md
+   ============================================================ */
+:root {
+  /* Colors — Brand & Accent */
+  --color-primary:          #0066cc;
+  --color-primary-focus:    #0071e3;
+
+  /* Colors — Surface */
+  --color-canvas:           #ffffff;
+  --color-canvas-parchment: #f5f5f7;
+  --color-surface-pearl:    #fafafc;
+  --color-surface-tile-1:   #272729;
+  --color-surface-black:    #000000;
+
+  /* Colors — Text */
+  --color-ink:              #1d1d1f;
+  --color-on-dark:          #ffffff;
+  --color-body-muted:       #cccccc;
+  --color-ink-muted-80:     #333333;
+  --color-ink-muted-48:     #7a7a7a;
+
+  /* Colors — Borders */
+  --color-hairline:         #e0e0e0;
+  --color-divider-soft:     rgba(0, 0, 0, 0.04);
+
+  /* Border Radius */
+  --rounded-sm:   8px;
+  --rounded-md:   11px;
+  --rounded-lg:   18px;
+  --rounded-pill: 9999px;
+
+  /* Spacing */
+  --spacing-xs:      8px;
+  --spacing-sm:      12px;
+  --spacing-lg:      24px;
+  --spacing-section: 80px;
+
+  /* Typography */
+  --font-display: "SF Pro Display", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body:    "SF Pro Text",    system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ============================================================
+   Reset
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-canvas-parchment);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   Global Nav — component.global-nav
+   44px, Pure Black, nav-link: 12px/400/-0.12px
+   ============================================================ */
+.global-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-surface-black);
+  height: 44px;
+}
+
+.global-nav__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
+}
+
+.global-nav__logo {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: -0.12px;
+  color: var(--color-on-dark);
+  opacity: 0.8;
+}
+
+/* ============================================================
+   Page Canvas & Calc Tile
+   Parchment 배경, 수직 패딩 80px (spacing.section)
+   ============================================================ */
+.page-canvas {
+  background-color: var(--color-canvas-parchment);
+  min-height: calc(100vh - 44px);
+}
+
+.calc-tile {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: var(--spacing-section) var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+/* typography.display-lg: 40px/600/1.10/0px */
+.calc-headline {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.10;
+  letter-spacing: 0px;
+  color: var(--color-ink);
+  text-align: center;
+}
+
+/* ============================================================
+   Calculator 카드 — store-utility-card 문법
+   white bg, 1px hairline, 18px radius, 24px padding
+   shadow 없음 (Do Not: 카드에 shadow 금지)
+   ============================================================ */
+.calculator {
+  background-color: var(--color-canvas);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--rounded-lg);
+  padding: var(--spacing-lg);
+  width: 320px;
+}
+
+/* ============================================================
+   Display
+   ============================================================ */
+.calc-display {
+  background-color: var(--color-canvas-parchment);
+  border-radius: var(--rounded-md);
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+/* typography.caption: 14px/400/1.43/-0.224px, ink-muted-48 */
+.calc-expression {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: -0.224px;
+  color: var(--color-ink-muted-48);
+  min-height: 20px;
+  word-break: break-all;
+}
+
+/* typography.display-md: 34px/600/1.47/-0.374px */
+.calc-result {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+  color: var(--color-ink);
+  word-break: break-all;
+  transition: font-size 0.1s ease;
+}
+
+/* ============================================================
+   Button Grid
+   ============================================================ */
+.calc-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-xs);
+}
+
+.btn-zero {
+  grid-column: span 2;
+}
+
+/* ============================================================
+   Button 공통 — 모든 버튼 active: scale(0.95)
+   ============================================================ */
+.btn {
+  border: none;
+  cursor: pointer;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.08s ease, background-color 0.1s ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+/* ============================================================
+   숫자 버튼 — button-pearl-capsule 문법
+   #fafafc bg, 11px radius (rounded.md), 17px/400
+   ============================================================ */
+.btn-number {
+  background-color: var(--color-surface-pearl);
+  color: var(--color-ink-muted-80);
+  border: 3px solid var(--color-divider-soft);
+  border-radius: var(--rounded-md);
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.374px;
+}
+
+/* ============================================================
+   연산자 버튼 — button-dark-utility 문법
+   #1d1d1f bg, 8px radius (rounded.sm), 14px/400/-0.224px
+   ============================================================ */
+.btn-operator {
+  background-color: var(--color-ink);
+  color: var(--color-on-dark);
+  border-radius: var(--rounded-sm);
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.224px;
+}
+
+/* 선택된 연산자 — Action Blue (유일한 accent 재활용) */
+.btn-operator.is-selected {
+  background-color: var(--color-primary);
+  color: var(--color-on-dark);
+}
+
+/* ============================================================
+   유틸리티 버튼 — button-dark-utility 변형
+   Near-Black Tile 1 (#272729), 8px radius
+   ============================================================ */
+.btn-utility {
+  background-color: var(--color-surface-tile-1);
+  color: var(--color-on-dark);
+  border-radius: var(--rounded-sm);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.224px;
+}
+
+/* ============================================================
+   등호 버튼 — button-primary 문법
+   Action Blue, 9999px (rounded.pill) — 유일한 pill 버튼
+   17px/400, 2px focus ring
+   ============================================================ */
+.btn-equals {
+  background-color: var(--color-primary);
+  color: var(--color-on-dark);
+  border-radius: var(--rounded-pill);
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.374px;
+}
+
+.btn-equals:focus-visible {
+  outline: 2px solid var(--color-primary-focus);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   반응형
+   ============================================================ */
+@media (max-width: 640px) {
+  .calc-tile {
+    padding: 48px 16px;
+  }
+
+  .calc-headline {
+    font-size: 34px;
+  }
+
+  .calculator {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .calc-buttons {
+    gap: 6px;
+  }
+}
+
+@media (max-width: 419px) {
+  .calc-headline {
+    font-size: 28px;
+  }
+
+  .btn {
+    height: 52px;
+  }
+}
