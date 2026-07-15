@@ -250,6 +250,18 @@ Error: Function must contain at least one property
 
 ---
 
+### `vercel.json` 구조 정리
+
+| 프로퍼티 | 역할 |
+|---|---|
+| `builds` | 각 파일을 어떤 형태로 Vercel에 올릴지 지정 |
+| `routes` | URL과 배포된 파일을 연결하는 지도 |
+
+`@vercel/node` — JS 파일을 serverless function으로 실행
+`@vercel/static` — 파일을 CDN에 그대로 올림
+
+---
+
 ### 추가 리팩토링 — `api/` 컨벤션으로 전환
 
 #### 배경
@@ -309,18 +321,6 @@ export default async function handler(req, res) {
 | Vercel 인식 | `vercel.json` 필수 | `api/` 폴더만 있으면 자동 감지 |
 | 의존성 | express, cors, dotenv | 없음 (Node 내장 fetch) |
 | `public/` 자동 서빙 | 안 됨 | 됨 |
-
----
-
-### `vercel.json` 구조 정리
-
-| 프로퍼티 | 역할 |
-|---|---|
-| `builds` | 각 파일을 어떤 형태로 Vercel에 올릴지 지정 |
-| `routes` | URL과 배포된 파일을 연결하는 지도 |
-
-`@vercel/node` — JS 파일을 serverless function으로 실행
-`@vercel/static` — 파일을 CDN에 그대로 올림
 
 ---
 
