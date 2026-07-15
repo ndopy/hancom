@@ -1,0 +1,82 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #1c1c1e;
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.calculator {
+  width: 320px;
+  background: #2c2c2e;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.display {
+  height: 90px;
+  margin-bottom: 16px;
+  padding: 0 12px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  color: #fff;
+  font-size: 48px;
+  font-weight: 300;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+button {
+  height: 64px;
+  border: none;
+  border-radius: 12px;
+  background: #505050;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+button:hover {
+  filter: brightness(1.15);
+}
+
+button:active {
+  filter: brightness(0.85);
+}
+
+.operator {
+  background: #ff9500;
+}
+
+.action {
+  background: #a5a5a5;
+  color: #1c1c1e;
+}
+
+.equals {
+  background: #ff9500;
+}
+
+.span-2 {
+  grid-column: span 2;
+}
+
+.span-row-2 {
+  grid-row: span 2;
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>계산기</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="calculator">
+    <!-- 결과 디스플레이: JS가 이 요소의 텍스트를 갱신한다 -->
+    <div class="display" id="display">0</div>
+
+    <!-- 버튼 그리드: 클릭 리스너 하나를 여기에 붙이고(이벤트 위임)
+         각 버튼의 data-* 속성으로 종류를 분기한다 -->
+    <div class="buttons">
+      <button class="btn btn-func" data-action="clear">AC</button>
+      <button class="btn btn-func" data-action="sign">±</button>
+      <button class="btn btn-func" data-action="percent">%</button>
+      <button class="btn btn-op" data-operator="÷">÷</button>
+
+      <button class="btn" data-number="7">7</button>
+      <button class="btn" data-number="8">8</button>
+      <button class="btn" data-number="9">9</button>
+      <button class="btn btn-op" data-operator="×">×</button>
+
+      <button class="btn" data-number="4">4</button>
+      <button class="btn" data-number="5">5</button>
+      <button class="btn" data-number="6">6</button>
+      <button class="btn btn-op" data-operator="−">−</button>
+
+      <button class="btn" data-number="1">1</button>
+      <button class="btn" data-number="2">2</button>
+      <button class="btn" data-number="3">3</button>
+      <button class="btn btn-op" data-operator="+">+</button>
+
+      <button class="btn btn-zero" data-number="0">0</button>
+      <button class="btn" data-action="decimal">.</button>
+      <button class="btn btn-op" data-action="equals">=</button>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

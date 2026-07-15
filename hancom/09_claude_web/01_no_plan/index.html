@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>계산기</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .calculator {
+      width: 320px;
+      background: #1c1c1e;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .display {
+      background: #1c1c1e;
+      color: #fff;
+      text-align: right;
+      padding: 20px 10px;
+      margin-bottom: 15px;
+      min-height: 90px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+
+    .display .history {
+      font-size: 1rem;
+      color: #8e8e93;
+      min-height: 24px;
+      word-break: break-all;
+    }
+
+    .display .current {
+      font-size: 2.8rem;
+      font-weight: 300;
+      word-break: break-all;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    button {
+      border: none;
+      border-radius: 50%;
+      height: 64px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #fff;
+      background: #333;
+      transition: filter 0.1s;
+    }
+
+    button:active {
+      filter: brightness(1.4);
+    }
+
+    button.operator {
+      background: #ff9500;
+    }
+
+    button.function {
+      background: #a5a5a5;
+      color: #000;
+    }
+
+    button.zero {
+      grid-column: span 2;
+      border-radius: 32px;
+      text-align: left;
+      padding-left: 26px;
+    }
+
+    button.equals {
+      background: #ff9500;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="display">
+      <div class="history" id="history"></div>
+      <div class="current" id="current">0</div>
+    </div>
+    <div class="buttons">
+      <button class="function" data-action="clear">AC</button>
+      <button class="function" data-action="sign">+/−</button>
+      <button class="function" data-action="percent">%</button>
+      <button class="operator" data-operator="/">÷</button>
+
+      <button data-number="7">7</button>
+      <button data-number="8">8</button>
+      <button data-number="9">9</button>
+      <button class="operator" data-operator="*">×</button>
+
+      <button data-number="4">4</button>
+      <button data-number="5">5</button>
+      <button data-number="6">6</button>
+      <button class="operator" data-operator="-">−</button>
+
+      <button data-number="1">1</button>
+      <button data-number="2">2</button>
+      <button data-number="3">3</button>
+      <button class="operator" data-operator="+">+</button>
+
+      <button class="zero" data-number="0">0</button>
+      <button data-action="decimal">.</button>
+      <button class="equals" data-action="equals">=</button>
+    </div>
+  </div>
+
+  <script>
+    const currentEl = document.getElementById("current");
+    const historyEl = document.getElementById("history");
+
+    // 계산기 상태
+    let current = "0";     // 현재 입력 중인 숫자(문자열)
+    let previous = null;   // 직전에 확정된 숫자
+    let operator = null;   // 대기 중인 연산자
+    let resetNext = false; // 다음 숫자 입력 시 화면을 지울지 여부
+
+    const opSymbol = { "+": "+", "-": "−", "*": "×", "/": "÷" };
+
+    function updateDisplay() {
+      currentEl.textContent = current;
+      historyEl.textContent =
+        previous !== null && operator
+          ? `${previous} ${opSymbol[operator]}`
+          : "";
+    }
+
+    function inputNumber(num) {
+      if (resetNext) {
+        current = num;
+        resetNext = false;
+      } else {
+        current = current === "0" ? num : current + num;
+      }
+    }
+
+    function inputDecimal() {
+      if (resetNext) {
+        current = "0.";
+        resetNext = false;
+        return;
+      }
+      if (!current.includes(".")) current += ".";
+    }
+
+    function calculate(a, b, op) {
+      switch (op) {
+        case "+": return a + b;
+        case "-": return a - b;
+        case "*": return a * b;
+        case "/": return b === 0 ? NaN : a / b;
+      }
+    }
+
+    function chooseOperator(op) {
+      // 이미 대기 중인 연산이 있으면 먼저 계산
+      if (operator && !resetNext) {
+        const result = calculate(previous, parseFloat(current), operator);
+        current = String(result);
+      }
+      previous = parseFloat(current);
+      operator = op;
+      resetNext = true;
+    }
+
+    function equals() {
+      if (operator === null) return;
+      const result = calculate(previous, parseFloat(current), operator);
+      current = Number.isNaN(result) ? "오류" : String(result);
+      previous = null;
+      operator = null;
+      resetNext = true;
+    }
+
+    function clear() {
+      current = "0";
+      previous = null;
+      operator = null;
+      resetNext = false;
+    }
+
+    function toggleSign() {
+      if (current === "0" || current === "오류") return;
+      current = current.startsWith("-") ? current.slice(1) : "-" + current;
+    }
+
+    function percent() {
+      current = String(parseFloat(current) / 100);
+    }
+
+    // 버튼 클릭을 하나의 리스너로 처리(이벤트 위임)
+    document.querySelector(".buttons").addEventListener("click", (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+
+      if (btn.dataset.number !== undefined) {
+        inputNumber(btn.dataset.number);
+      } else if (btn.dataset.operator) {
+        chooseOperator(btn.dataset.operator);
+      } else {
+        switch (btn.dataset.action) {
+          case "clear": clear(); break;
+          case "sign": toggleSign(); break;
+          case "percent": percent(); break;
+          case "decimal": inputDecimal(); break;
+          case "equals": equals(); break;
+        }
+      }
+      updateDisplay();
+    });
+
+    // 키보드 입력 지원
+    document.addEventListener("keydown", (e) => {
+      if (e.key >= "0" && e.key <= "9") inputNumber(e.key);
+      else if (["+", "-", "*", "/"].includes(e.key)) chooseOperator(e.key);
+      else if (e.key === "Enter" || e.key === "=") equals();
+      else if (e.key === ".") inputDecimal();
+      else if (e.key === "Escape") clear();
+      else if (e.key === "Backspace") {
+        current = current.length > 1 ? current.slice(0, -1) : "0";
+      } else return;
+      updateDisplay();
+    });
+
+    updateDisplay();
+  </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+/* 색상 변수: 추후 라이트 테마 확장 시 이 값들만 바꾸면 된다 */
+:root {
+  --bg: #000;
+  --calc-bg: #000;
+  --display-text: #fff;
+  --btn-num: #333;
+  --btn-num-text: #fff;
+  --btn-func: #a5a5a5;
+  --btn-func-text: #000;
+  --btn-op: #ff9f0a;
+  --btn-op-text: #fff;
+  --gap: 12px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.calculator {
+  width: 100%;
+  max-width: 340px;
+  padding: 16px;
+  background: var(--calc-bg);
+}
+
+/* 디스플레이: 오른쪽 정렬, 긴 숫자는 넘치지 않도록 처리 */
+.display {
+  color: var(--display-text);
+  font-size: 72px;
+  font-weight: 300;
+  text-align: right;
+  padding: 16px 12px;
+  min-height: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* 4열 그리드 */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+}
+
+.btn {
+  aspect-ratio: 1 / 1;
+  border: none;
+  border-radius: 50%;
+  font-size: 32px;
+  color: var(--btn-num-text);
+  background: var(--btn-num);
+  cursor: pointer;
+  transition: filter 0.1s ease;
+}
+
+.btn:active {
+  filter: brightness(1.4);
+}
+
+.btn-func {
+  background: var(--btn-func);
+  color: var(--btn-func-text);
+}
+
+.btn-op {
+  background: var(--btn-op);
+  color: var(--btn-op-text);
+}
+
+/* 0 버튼은 2칸을 차지하고, 텍스트를 왼쪽으로 붙인다(iOS 스타일) */
+.btn-zero {
+  grid-column: span 2;
+  aspect-ratio: auto;
+  border-radius: 999px;
+  text-align: left;
+  padding-left: 28px;
+}
