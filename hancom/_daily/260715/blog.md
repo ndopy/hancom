@@ -162,7 +162,71 @@ app.use(express.static("public"));  // "." → "public"
 - `express.static("public")` — serverless 함수 번들에 `public/` 폴더가 포함되지 않아 파일을 찾지 못함
 - `public/` CDN 자동 서빙 — `vercel.json` 없이는 Vercel이 `public/`을 CDN으로 서빙하지 않음
 
-Vercel 공식 문서가 "public/ 폴더를 자동으로 CDN 서빙한다"고 명시하지만, 실제 테스트에서는 동작하지 않았다. **`vercel.json`에서 `public/**`을 `@vercel/static`으로 명시하는 것이 실제로 필요하다.**
+Vercel 공식 문서가 "public/ 폴더를 자동으로 CDN 서빙한다"고 명시하지만, 실제 테스트에서는 동작하지 않았다. (이 시점의 잠정 결론 — 이후 `api/` 컨벤션 전환 후 원인이 밝혀짐)
+
+#### `vc init express` 탐색 — zero-config 구조 확인
+
+"왜 zero-config가 안 될까?"를 파악하기 위해 Vercel 공식 Express 템플릿 구조를 확인했다.
+
+```bash
+# 07_groq 안에 새 폴더를 만들어 실행
+vc init express groq-v3
+```
+
+생성된 구조:
+
+```
+groq-v3/
+├── api/
+│   └── index.js      # export default app — app.listen() 없음
+└── package.json
+```
+
+핵심은 `public/`이 없다는 것이다. Vercel의 zero-config Express 템플릿은 **정적 파일이 없는 순수 API 서버**를 기준으로 만들어져 있다. 정적 파일과 API가 공존하는 구조는 공식 템플릿이 아예 다루지 않는다.
+
+#### `functions`/`rewrites` 시도 — 실패
+
+zero-config가 안 되자 Claude Web과 Gemini에게 피드백을 구했다. 둘 다 `builds`/`routes`(레거시)를 버리고 최신 방식인 `functions`/`rewrites`를 쓰라고 권장했다.
+
+**시도 1** — Claude Web 제안
+
+```json
+{
+  "functions": {
+    "server.js": { "runtime": "@vercel/node@3" }
+  },
+  "rewrites": [
+    { "source": "/api/chat", "destination": "/server.js" }
+  ]
+}
+```
+
+오류:
+
+```
+Error: Function Runtimes must have a valid version
+```
+
+**시도 2** — Gemini 수정 제안 (runtime 제거, api/ 경로 사용)
+
+```json
+{
+  "functions": {
+    "api/chat.js": {}
+  },
+  "rewrites": [
+    { "source": "/api/chat", "destination": "/api/chat.js" }
+  ]
+}
+```
+
+오류:
+
+```
+Error: Function must contain at least one property
+```
+
+두 번 모두 실패했다. `builds`/`routes` 방식으로 되돌렸다. AI가 "더 나은 방식"으로 권장한 것이 실제로는 동작하지 않았다.
 
 #### 최종 `vercel.json` — `public/**` 와일드카드
 
@@ -186,13 +250,13 @@ Vercel 공식 문서가 "public/ 폴더를 자동으로 CDN 서빙한다"고 명
 
 ---
 
----
-
 ### 추가 리팩토링 — `api/` 컨벤션으로 전환
 
 #### 배경
 
 `vercel.json` + Express 방식이 동작하긴 했지만, 이는 Vercel의 레거시 `builds`/`routes` 방식이다. Vercel의 공식 권장 방식은 `api/` 디렉토리를 사용하는 zero-config 서버리스 함수 컨벤션이다. 오늘 zero-config 테스트가 실패한 원인이 `server.js` 구조 때문인지 확인하기 위해 전환을 시도했다.
+
+이 시점에 `07_groq`를 hancom 모노레포에서 분리해 **`groq-chatbot`이라는 독립 GitHub 레포**로 새로 만들었다. 이후 내용은 이 레포 기준이다.
 
 #### 구조 변경
 
@@ -267,6 +331,6 @@ export default async function handler(req, res) {
 3. **`builds`에 명시된 파일만 배포된다** — 정적 파일도 빠짐없이 포함해야 한다.
 4. **오류 메시지 출처를 구분하면 범위가 좁혀진다** — "Cannot GET /"는 Express, "404: NOT_FOUND"는 Vercel.
 5. **Express를 Vercel serverless로 쓰려면 `export default app`이 필요하다** — `app.listen()`은 로컬 전용이다.
-6. **Vercel zero-config는 진입점 감지까지만 한다** — `server.js`는 자동 감지되지만, `public/` CDN 서빙은 자동으로 이뤄지지 않는다. 새 프로젝트로 재테스트해서 직접 확인했다. (2026-07 기준. zero-config Express는 비교적 최근 기능이라 이후 동작이 바뀔 수 있다.)
+6. **`server.js`(Express) 방식은 zero-config가 반쪽짜리다** — `server.js`는 자동 감지되지만 `public/` CDN 서빙은 안 된다. `server.js`를 `api/chat.js`로 교체하자 `vercel.json` 없이도 `public/`이 자동 서빙됐다. Vercel은 `api/` 디렉토리가 있어야 프로젝트를 완전히 인식하는 것으로 보인다.
 7. **AI가 제안한 방식도 직접 테스트하기 전까지는 신뢰할 수 없다** — Claude Web, Gemini가 `functions`/`rewrites` 방식을 권장했지만 실제로는 동작하지 않았다. 직접 삽질해서 확인한 `builds` + `routes`가 유일하게 동작한 방식이었다.
 8. **`public/` zero-config 자동 서빙은 `api/` 디렉토리가 있어야 동작한다** — `server.js`만 있는 구조에서는 `public/`이 자동 서빙되지 않았다. `server.js`를 제거하고 `api/chat.js`(Vercel zero-config 서버리스 함수 컨벤션)로 교체하자 `vercel.json` 없이도 `public/`이 자동 서빙됐다. Vercel이 `api/` 디렉토리를 감지해야 프로젝트 구조를 제대로 인식하는 것으로 보인다.
