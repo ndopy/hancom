@@ -8,3 +8,8 @@ node_modules/
 # YOLO 추론 결과 (자동 생성 디렉토리)
 **/runs/
 
+# 12_data 실습 이미지 (카메라 촬영본 · 증강 결과물)
+hancom/12_data/**/*.jpg
+hancom/12_data/**/*.jpeg
+hancom/12_data/**/*.png
+
