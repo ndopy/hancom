@@ -336,6 +336,49 @@ builds the best product.
 
 ---
 
+## 17 — 요약 결과 한국어 번역 (deep_translator)
+
+### 요약 → 번역 파이프라인
+
+`t5-small`로 요약한 영어 결과물을 `deep_translator`의 `GoogleTranslator`로 한국어로 번역했다.
+
+```python
+from deep_translator import GoogleTranslator
+
+def translate_en_to_kr(sentence):
+    translated_sentences = GoogleTranslator(source="en", target="ko").translate(sentence)
+    return translated_sentences
+```
+
+`GoogleTranslator`는 Google 번역 API를 내부적으로 호출한다.  
+`source`와 `target`에 언어 코드를 지정하면 되고, `.translate()`에 문자열을 넘기면 번역 결과 문자열을 반환한다.
+
+### 사용 흐름
+
+```python
+summarizer = pipeline("summarization", model="t5-small")
+
+summary = summarizer(text, min_length=50, max_length=150, do_sample=False)
+sum_text = summary[0]["summary_text"]
+print(f"요약된 영어 문장 : {sum_text}")
+
+kr_sum_text = translate_en_to_kr(sum_text)
+print(f"번역된 한국어 문장 : {kr_sum_text}")
+```
+
+t5-small이 영어로 요약한 결과를 바로 번역 함수에 넘기는 구조다.  
+모델 자체가 한국어 요약을 지원하지 않으므로, 요약 → 번역을 순서대로 연결하는 방식으로 한국어 결과를 얻는다.
+
+### 정리
+
+- `deep_translator`의 `GoogleTranslator`는 `source`/`target` 언어 코드와 `.translate()` 호출만으로 번역할 수 있다.
+
+- 한국어를 직접 요약하는 모델이 없을 때 "영어 요약 → 한국어 번역" 순서로 연결하면 결과를 얻을 수 있다.
+
+- 번역 품질은 Google 번역 수준이므로, 자연스러운 한국어가 필요하면 한국어 요약 파인튜닝 모델을 탐색하는 것이 낫다.
+
+---
+
 ## 18 — OCR (Tesseract + pytesseract)
 
 ### Tesseract 설치
