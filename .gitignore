@@ -16,3 +16,11 @@ hancom/12_data/**/*.jpg
 hancom/12_data/**/*.jpeg
 hancom/12_data/**/*.png
 
+# 환경변수 파일 (API 키 등 민감 정보)
+.env
+**/.env
+
+# Python 바이트코드 캐시
+__pycache__/
+**/__pycache__/
+
