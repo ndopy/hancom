@@ -24,3 +24,6 @@ hancom/12_data/**/*.png
 __pycache__/
 **/__pycache__/
 
+# Gradio 실행 시 자동 생성되는 런타임 파일 (인증서, flagged 데이터)
+**/.gradio/
+
