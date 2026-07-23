@@ -1,0 +1,42 @@
+import gradio as gr
+from deep_translator import GoogleTranslator
+from ultralytics import YOLO
+
+model = YOLO("yolo11n.pt")
+
+
+# 1. 지금까지 만든 함수 3개 그대로 가져오기 (손댈 필요 없음)
+def say_hello(name):
+    return "Hello, " + name
+
+
+def trans_en_to_ko(text):
+    return GoogleTranslator(source="en", target="ko").translate(text)
+
+
+def det_image(image):
+    results = model(image)
+    return results[0].plot()
+
+
+# 2. 탭 3개로 묶기
+with gr.Blocks() as gr_web:
+    gr.Markdown("# 내가 만든 AI 앱 모음")  # 마크다운으로 제목
+
+    with gr.Tab("인사"):
+        name_box = gr.Textbox(label="이름")
+        hello_out = gr.Textbox(label="인사말")
+        # .click(실행할 함수, 읽어올 칸, 결과 쓸 칸)
+        gr.Button("인사하기").click(say_hello, name_box, hello_out)
+
+    with gr.Tab("번역"):
+        en_box = gr.Textbox(label="영어")
+        ko_box = gr.Textbox(label="한국어")
+        gr.Button("번역하기").click(trans_en_to_ko, en_box, ko_box)
+
+    with gr.Tab("YOLO 탐지"):
+        img_in = gr.Image(type="numpy", label="사진 올리기")
+        img_out = gr.Image(label="탐지 결과")
+        gr.Button("탐지하기").click(det_image, img_in, img_out)
+
+gr_web.launch(share=True)
